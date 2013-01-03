@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="ComponentNameEnum">
+
+    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+
+    <OMX_ComponentNameEnum expect="OMX_ErrorNone" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="RoleOfComponentEnum">
+
+    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.tizonia.test_component" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.ilcore.test_component" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer.pcm" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer.pcm" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.file_reader.binary" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.file_reader.binary" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.mp3" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.video_decoder.vp8" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.video_encoder.vp8" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.image_decoder.webp" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.image_encoder.webp" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.iv_renderer.yuv.overlay" expect="OMX_ErrorNone" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>
