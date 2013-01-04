@@ -17,8 +17,8 @@
 
 import skema.suite
 
-SUITENAME="simple"
-SCRIPTPATH = ['~/work/skema/skema/suites/simple.xml']
+SUITENAME="pcmplaybacl"
+SCRIPTPATH = ['~/work/skema/skema/suites/pcmplaybacl.xml']
 PATTERN = "^(?P<test_case_id>\w+):\W+(?P<measurement>\d+\.\d+)"
 
 instobj = skema.suite.SkemaSuiteInstaller(suitename=SUITENAME,

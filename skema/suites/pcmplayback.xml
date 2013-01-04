@@ -3,7 +3,7 @@
 <!-- Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio -->
 
 <Suite>
-  <Case name="PCM48Khz">
+  <Case name="PcmPlayback48Khz">
     <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
@@ -124,7 +124,7 @@
     <OMX_Deinit />
   </Case>
 
-  <Case name="PCM441Khz">
+  <Case name="PcmPlayback44.1Khz">
     <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
