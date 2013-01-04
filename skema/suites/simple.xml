@@ -3,7 +3,7 @@
 <!-- Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio -->
 
 <Suite>
-  <Case name="BasicOperation">
+  <Case name="PCM48Khz">
     <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
@@ -24,7 +24,7 @@
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr" port="0"
-                       uri="/home/joni/work/media/raw_pcm/Jump.raw"
+                       uri="/home/joni/temp/tizonia_test_media/pcm/Tom_Fahy_-_81_-_4_5sec_le_signed_16_48_stereo.raw"
                        expect="OMX_ErrorNone"/>
 
     <OMX_GetParameter index="OMX_IndexParamAudioPcm" alias="ar"
@@ -124,7 +124,7 @@
     <OMX_Deinit />
   </Case>
 
-  <Case name="BasicOperation2">
+  <Case name="PCM441Khz">
     <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
@@ -144,9 +144,14 @@
                       port="0" expect="OMX_ErrorNone"/>
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
-    <OMX_SetContentURI alias="fr"
-                       port="0" uri="/home/joni/work/media/raw_pcm/Here.raw"
+    <OMX_SetContentURI alias="fr" port="0"
+                       uri="/home/joni/temp/tizonia_test_media/pcm/Tom_Fahy_-_81_-_5sec_le_signed_16_44_1_stereo.raw"
                        expect="OMX_ErrorNone"/>
+
+    <OMX_SetParameter index="OMX_IndexParamAudioPcm" alias="ar"
+                      port="0" nChannels="2" eNumData="0"
+                      eEndian="1" nBitPerSample="16"
+                      nSamplingRate="44100" expect="OMX_ErrorNone"/>
 
     <OMX_SetupTunnel outcomp="fr" outport="0" incomp="ar" inport="0"
                      expect="OMX_ErrorNone"/>
