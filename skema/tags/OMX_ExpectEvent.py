@@ -81,5 +81,24 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                         log_line ()
                         log_line ("%s '%s' '%s' TIMEDOUT" \
                                         % (element.tag, name, evtstr))
+            elif (evt == OMX_EventPortSettingsChanged):
+                if (context.eosevents[handle.value].is_set()):
+                    context.eosevents[handle.value].clear()
+                    log_line ()
+                    log_line ("%s '%s' '%s' has already been received OK" \
+                                    % (element.tag, name, evtstr), 1)
+                else:
+                    log_line ()
+                    log_line ("%s Waiting for '%s' from '%s'" \
+                                    % (element.tag, evtstr, name), 1)
+                    context.eosevents[handle.value].wait(int(timeoutstr))
+                    if (context.eosevents[handle.value].is_set()):
+                        log_line ()
+                        log_line ("%s '%s' '%s' has been received OK" \
+                                        % (element.tag, name, evtstr))
+                    else:
+                        log_line ()
+                        log_line ("%s '%s' '%s' TIMEDOUT" \
+                                        % (element.tag, name, evtstr))
 
 tagobj = skema.tag.SkemaTag(tagname="OMX_ExpectEvent")

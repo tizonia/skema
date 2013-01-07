@@ -47,6 +47,12 @@ def my_evt_hdler(a, b, c, d, e, f):
         log_line ()
         log_line ("Received -> '%s' Port '%d'" \
                         % (evtstr, d), 1)
+    elif (c == OMX_EventPortSettingsChanged):
+        config.eosevents[a].set()
+        log_api("EventHandler '%s'"  % (name))
+        log_line ()
+        log_line ("Received -> '%s' Port '%d'" \
+                        % (evtstr, d), 1)
 
     return 0
 

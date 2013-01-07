@@ -17,8 +17,8 @@
 
 import skema.suite
 
-SUITENAME="Mp3Playback"
-SCRIPTPATH = ['~/work/skema/skema/suites/mp3playback.xml']
+SUITENAME="Vp8Playback"
+SCRIPTPATH = ['~/work/skema/skema/suites/Vp8Playback.xml']
 PATTERN = "^(?P<test_case_id>\w+):\W+(?P<measurement>\d+\.\d+)"
 
 instobj = skema.suite.SkemaSuiteInstaller(suitename=SUITENAME,

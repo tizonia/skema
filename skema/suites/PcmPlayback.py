@@ -17,8 +17,8 @@
 
 import skema.suite
 
-SUITENAME="compnames"
-SCRIPTPATH = ['~/work/skema/skema/suites/compnames.xml']
+SUITENAME="PcmPlayback"
+SCRIPTPATH = ['~/work/skema/skema/suites/PcmPlayback.xml']
 PATTERN = "^(?P<test_case_id>\w+):\W+(?P<measurement>\d+\.\d+)"
 
 instobj = skema.suite.SkemaSuiteInstaller(suitename=SUITENAME,

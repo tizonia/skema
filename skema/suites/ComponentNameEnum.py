@@ -17,8 +17,8 @@
 
 import skema.suite
 
-SUITENAME="simple2"
-SCRIPTPATH = ['~/work/skema/skema/suites/simple2.xml']
+SUITENAME="ComponentNameEnum"
+SCRIPTPATH = ['~/work/skema/skema/suites/ComponentNameEnum.xml']
 PATTERN = "^(?P<test_case_id>\w+):\W+(?P<measurement>\d+\.\d+)"
 
 instobj = skema.suite.SkemaSuiteInstaller(suitename=SUITENAME,

@@ -30,6 +30,77 @@ from skema.utils import log_api
 from ctypes import *
 from xml.etree.ElementTree import ElementTree as et
 
+
+# TODO: Code reuse. Move decode_ functions to a common place. They are
+# currently used in OMX_GetParameter.py and OMX_SetParameter.py
+def decode_audio_portdef (param_struct, param2_type):
+    log_line ("%s" % param2_type.__name__, 1)
+    for name, val in param2_type._fields_:
+        if (name == "eEncoding"):
+            encstr = get_string_from_il_enum (\
+                getattr(param_struct.format.audio, name), \
+                    "OMX_AUDIO_Coding")
+            log_line ("%s -> '%s'" \
+                          % (name, encstr),2)
+        else:
+            log_line ("%s -> '%s'" \
+                          % (name, getattr(param_struct.format.audio, name)),2)
+
+
+def decode_video_portdef (param_struct, param2_type):
+    log_line ("%s" % param2_type.__name__, 1)
+    for name, val in param2_type._fields_:
+        if (name == "eCompressionFormat"):
+            encstr = get_string_from_il_enum (\
+                getattr(param_struct.format.video, name), \
+                    "OMX_VIDEO_Coding")
+            log_line ("%s -> '%s'" \
+                          % (name, encstr),2)
+        elif (name == "eColorFormat"):
+            encstr = get_string_from_il_enum (\
+                getattr(param_struct.format.video, name), \
+                    "OMX_COLOR_Format")
+            log_line ("%s -> '%s'" \
+                          % (name, encstr),2)
+        else:
+            log_line ("%s -> '%s'" \
+                          % (name, getattr(param_struct.format.video, name)),2)
+
+
+def decode_image_portdef (param_struct, param2_type):
+    log_line ("%s" % param2_type.__name__, 1)
+    for name, val in param2_type._fields_:
+        if (name == "eCompressionFormat"):
+            encstr = get_string_from_il_enum (\
+                getattr(param_struct.format.image, name), \
+                    "OMX_IMAGE_Coding")
+            log_line ("%s -> '%s'" \
+                          % (name, encstr),2)
+        elif (name == "eColorFormat"):
+            encstr = get_string_from_il_enum (\
+                getattr(param_struct.format.image, name), \
+                    "OMX_COLOR_Format")
+            log_line ("%s -> '%s'" \
+                          % (name, encstr),2)
+        else:
+            log_line ("%s -> '%s'" \
+                          % (name, getattr(param_struct.format.image, name)),2)
+
+
+def decode_other_portdef (param_struct, param2_type):
+    log_line ("%s" % param2_type.__name__, 1)
+    for name, val in param2_type._fields_:
+        if (name == "eFormat"):
+            encstr = get_string_from_il_enum (\
+                getattr(param_struct.format.other, name), \
+                    "OMX_OTHER_Format")
+            log_line ("%s -> '%s'" \
+                          % (name, encstr),2)
+        else:
+            log_line ("%s -> '%s'" \
+                          % (name, getattr(param_struct.format.other, name)),2)
+
+
 class tag_OMX_GetParameter(skema.tag.SkemaTag):
     """
 
@@ -72,24 +143,17 @@ class tag_OMX_GetParameter(skema.tag.SkemaTag):
 
                     if (domstr == "OMX_PortDomainAudio"):
                         param2_type = OMX_AUDIO_PORTDEFINITIONTYPE
+                        decode_audio_portdef (param_struct, param2_type)
                     elif (domstr == "OMX_PortDomainVideo"):
                         param2_type = OMX_VIDEO_PORTDEFINITIONTYPE
+                        decode_video_portdef (param_struct, param2_type)
                     elif (domstr == "OMX_PortDomainImage"):
                         param2_type = OMX_IMAGE_PORTDEFINITIONTYPE
+                        decode_image_portdef (param_struct, param2_type)
                     elif (domstr == "OMX_PortDomainOther"):
                         param2_type = OMX_OTHER_PORTDEFINITIONTYPE
+                        decode_other_portdef (param_struct, param2_type)
 
-                    log_line ("%s" % param2_type.__name__, 1)
-                    for name2, val2 in param2_type._fields_:
-                        if (name2 == "eEncoding"):
-                            encstr = get_string_from_il_enum (\
-                                        getattr(param_struct.format.audio, name2), \
-                                            "OMX_AUDIO_Coding")
-                            log_line ("%s -> '%s'" \
-                                            % (name2, encstr),2)
-                        else:
-                            log_line ("%s -> '%s'" \
-                                            % (name2, getattr(param_struct.format.audio, name2)),2)
                 else:
                     log_line ("%s -> '%s'" \
                         % (name, getattr(param_struct, name)),1)

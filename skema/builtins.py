@@ -95,9 +95,10 @@ class cmd_run_suite(skema.command.SkemaCmd):
     arglist = ['*suitename']
     options = [make_option('-q', '--quiet', action='store_true',
                            default=False, dest='quiet'),
-               make_option('-o', '--output',  action='store',
-                           default=None, metavar="FILE",
-                           help="Store processed suite output to FILE")]
+#                make_option('-o', '--output',  action='store',
+#                            default=None, metavar="FILE",
+#                            help="Store processed suite output to FILE")
+               ]
 
     def run(self):
         from skema.suiteutils import suiteloader
