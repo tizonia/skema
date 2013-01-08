@@ -17,38 +17,37 @@ import sys
 import skema.tag
 
 from skema.omxil12 import *
-from skema.omxil12 import OMX_PARAM_CONTENTURITYPE
+from skema.omxil12 import OMX_PARAM_COMPONENTROLETYPE
 
-from skema.utils import log_api
 from skema.utils import log_line
+from skema.utils import log_api
 from skema.utils import log_param
 from skema.utils import log_result
 
+from types import *
 from ctypes import *
 from xml.etree.ElementTree import ElementTree as et
 
-class tag_OMX_SetContentURI(skema.tag.SkemaTag):
+
+class tag_OMX_SetComponentRole(skema.tag.SkemaTag):
     """
 
     """
     def run(self, element, context):
-        indexstr = "OMX_IndexParamContentURI"
-        uristr = element.get('uri')
+        indexstr = "OMX_IndexParamStandardComponentRole"
         alias = element.get('alias')
         name = context.cnames[alias]
-        portstr = element.get('port')
+        rolestr = element.get('role')
 
-        log_api ("%s '%s' '%s:Port-%d' '%s'" \
-                       % (element.tag, indexstr, name, int(portstr), uristr))
+        log_api ("%s '%s' '%s'" \
+                        % (element.tag, name, rolestr))
 
         handle = context.handles[alias]
         index = get_il_enum_from_string(indexstr)
-        param_type = OMX_PARAM_CONTENTURITYPE
+        param_type = OMX_PARAM_COMPONENTROLETYPE
         param_struct = param_type()
+        param_struct.nVersion.nVersion = OMX_VERSION
         param_struct.nSize = sizeof(param_type)
-
-        if (portstr != None):
-            param_struct.nPortIndex = int(portstr)
 
         if (handle != None):
             omxerror = OMX_GetParameter(handle, index, byref(param_struct))
@@ -59,19 +58,19 @@ class tag_OMX_SetContentURI(skema.tag.SkemaTag):
 
             for name, val in param_type._fields_:
                 for name2, val2 in element.items():
-                    if (name != "contentURI"):
+                    if (name != "cRole"):
                         if (name2 == name):
                             setattr(param_struct, name, int(val2))
                     else:
-                        libc.strcpy(cast(param_struct.contentURI, c_char_p),
-                                    uristr)
+                        libc.strcpy(cast(param_struct.cRole, c_char_p),
+                                    rolestr)
 
             omxerror = OMX_SetParameter(handle, index, byref(param_struct))
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
 
-            urifield = c_char_p()
-            urifield = cast(param_struct.contentURI, c_char_p)
+            rolefield = c_char_p()
+            rolefield = cast(param_struct.cRole, c_char_p)
 
             log_line ()
             log_line ("%s" % param_struct.__class__.__name__, 1)
@@ -79,8 +78,8 @@ class tag_OMX_SetContentURI(skema.tag.SkemaTag):
                 if (name == "nVersion"):
                     log_line ("%s -> '%08x'" \
                                     % (name, param_struct.nVersion.nVersion), 1)
-                elif (name == "contentURI"):
-                    log_param (name, urifield.value, 1)
+                elif (name == "cRole"):
+                    log_param (name, rolefield.value, 1)
                 else:
                     log_param (name, str(getattr(param_struct, name)), 1)
 
@@ -91,4 +90,4 @@ class tag_OMX_SetContentURI(skema.tag.SkemaTag):
                 % (element.tag, \
                        "Could not find handle for", context.cnames[alias]))
 
-tagobj = skema.tag.SkemaTag(tagname="OMX_SetContentURI")
+tagobj = skema.tag.SkemaTag(tagname="OMX_SetComponentRole")
