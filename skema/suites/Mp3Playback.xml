@@ -182,6 +182,12 @@
                      peventdata="0"
                      timeout="1"/>
 
+    <OMX_TeardownTunnel outcomp="fr" outport="0" incomp="ad" inport="0"
+                        expect="OMX_ErrorNone"/>
+
+    <OMX_TeardownTunnel outcomp="ad" outport="1" incomp="ar" inport="0"
+                        expect="OMX_ErrorNone"/>
+
     <OMX_FreeHandle alias="ar" />
     <OMX_FreeHandle alias="ad" />
     <OMX_FreeHandle alias="fr" />

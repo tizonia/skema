@@ -54,14 +54,13 @@ class tag_OMX_SetComponentRole(skema.tag.SkemaTag):
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
 
-            libc = CDLL('libc.so.6')
-
             for name, val in param_type._fields_:
                 for name2, val2 in element.items():
                     if (name != "cRole"):
                         if (name2 == name):
                             setattr(param_struct, name, int(val2))
                     else:
+                        libc = CDLL('libc.so.6')
                         libc.strcpy(cast(param_struct.cRole, c_char_p),
                                     rolestr)
 
