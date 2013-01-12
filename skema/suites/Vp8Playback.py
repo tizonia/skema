@@ -18,7 +18,8 @@
 import skema.suite
 
 SUITENAME="Vp8Playback"
-SCRIPTPATH = ['~/work/skema/skema/suites/Vp8Playback.xml']
+SCRIPTPATH = [str(os.path.join(os.path.dirname(os.path.realpath( __file__ )),
+                               'Vp8Playback.xml'))]
 PATTERN = "^(?P<test_case_id>\w+):\W+(?P<measurement>\d+\.\d+)"
 
 instobj = skema.suite.SkemaSuiteInstaller(suitename=SUITENAME,

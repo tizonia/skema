@@ -18,7 +18,8 @@
 import skema.suite
 
 SUITENAME="ComponentNameEnum"
-SCRIPTPATH = ['~/work/skema/skema/suites/ComponentNameEnum.xml']
+SCRIPTPATH = [str(os.path.join(os.path.dirname(os.path.realpath( __file__ )),
+                               'ComponentNameEnum.xml'))]
 PATTERN = "^(?P<test_case_id>\w+):\W+(?P<measurement>\d+\.\d+)"
 
 instobj = skema.suite.SkemaSuiteInstaller(suitename=SUITENAME,
