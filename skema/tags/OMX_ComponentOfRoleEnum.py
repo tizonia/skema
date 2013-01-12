@@ -26,16 +26,16 @@ from skema.utils import log_result
 from ctypes import *
 from xml.etree.ElementTree import ElementTree as et
 
-class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
+class tag_OMX_ComponentOfRoleEnum(skema.tag.SkemaTag):
     """
 
     """
     def run(self, element, context):
 
-        name = element.get('name')
-        log_api ("%s '%s'" % (element.tag, name))
+        role = element.get('role')
+        log_api ("%s '%s'" % (element.tag, role))
 
-        crole = OMX_STRING()
+        cname = OMX_STRING()
         index = OMX_U32()
         index = 0
         err = OMX_ERRORTYPE()
@@ -44,16 +44,16 @@ class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
 
         while True:
 
-            omxerror = OMX_RoleOfComponentEnum(crole, name, index)
+            omxerror = OMX_ComponentOfRoleEnum(cname, role, index)
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
             if (err == "OMX_ErrorNoMore"):
                 break;
 
-            log_line ("Role #%d : %s" % (index, crole),  1)
+            log_line ("Component #%d : %s" % (index, cname),  1)
             index = index + 1;
 
         if (err == "OMX_ErrorNoMore"):
             log_result(element.tag, "OMX_ErrorNone")
 
-tagobj = skema.tag.SkemaTag(tagname="OMX_RoleOfComponentEnum")
+tagobj = skema.tag.SkemaTag(tagname="OMX_ComponentOfRoleEnum")

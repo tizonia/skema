@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="ComponentOfRoleEnum">
+
+    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+
+    <OMX_ComponentOfRoleEnum role="tizonia_test_component.role1" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="tizonia_test_component.role2" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="default" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="audio_renderer.pcm" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="audio_reader.binary" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="video_reader.binary" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="image_reader.binary" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="other_reader.binary" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="audio_decoder.mp3" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="video_decoder.vp8" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="video_encoder.vp8" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="image_decoder.webp" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="image_encoder.webp" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="iv_renderer.yuv.overlay" expect="OMX_ErrorNone" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>
