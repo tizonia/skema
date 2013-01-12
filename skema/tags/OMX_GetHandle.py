@@ -33,11 +33,13 @@ class tag_OMX_GetHandle(skema.tag.SkemaTag):
     def run(self, element, context):
         name = element.get('name')
         alias = element.get('alias')
+        expectstr = element.get('expect', default='OMX_ErrorNone')
         context.cnames[alias] = name
         context.aliases[name] = alias
-        log_api ("%s '%s'" % (element.tag, name))
-        handle = OMX_HANDLETYPE()
 
+        log_api ("%s '%s' Expected '%s'" % (element.tag, name, expectstr))
+
+        handle = OMX_HANDLETYPE()
         EVT_HDLER_TYPE = CFUNCTYPE(UNCHECKED(OMX_ERRORTYPE), OMX_HANDLETYPE,
                                    OMX_PTR, OMX_EVENTTYPE, OMX_U32, OMX_U32,
                                    OMX_PTR)
@@ -56,13 +58,14 @@ class tag_OMX_GetHandle(skema.tag.SkemaTag):
         interror = int(omxerror & 0xffffffff)
         err = get_string_from_il_enum(interror, "OMX_Error")
 
-        if (interror == OMX_ErrorNone):
-            context.handles[alias] = handle
-            context.cnames2[handle.value] = name
-            context.cmdevents[handle.value] = threading.Event()
-            context.eosevents[handle.value] = threading.Event()
-        else:
-            context.handles[alias] = OMX_HANDLETYPE()
+        if (expectstr == err):
+            if (interror == OMX_ErrorNone):
+                context.handles[alias] = handle
+                context.cnames2[handle.value] = name
+                context.cmdevents[handle.value] = threading.Event()
+                context.eosevents[handle.value] = threading.Event()
+            else:
+                context.handles[alias] = OMX_HANDLETYPE()
 
         log_result (element.tag, err)
 
