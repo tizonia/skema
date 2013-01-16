@@ -15,15 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import hashlib
+"""
+Skema's tag-related base classes
+"""
+
 import os
-import re
 import shutil
-import sys
-import time
-from commands import getstatusoutput
-from datetime import datetime
-from uuid import uuid1
 
 from skema.api import SkemaTagIf
 from skema.config import get_config
@@ -83,22 +80,22 @@ class SkemaTag(SkemaTagIf):
         if os.path.exists(path):
             shutil.rmtree(path)
 
-    def _savetestdata(self, analyzer_assigned_uuid):
-        TIMEFORMAT = '%Y-%m-%dT%H:%M:%SZ'
-        bundle = {
-            'format': 'Dashboard Bundle Format 1.2',
-            'test_runs': [
-                {
-                    'test_id': self.tagsdir,
-                    'analyzer_assigned_date': self.runner.starttime.strftime(TIMEFORMAT),
-                    'analyzer_assigned_uuid': analyzer_assigned_uuid,
-                    'time_check_performed': False,
-                    'test_results': []
-                }
-            ]
-        }
-        filename = os.path.join(self.resultsdir, 'testdata.json')
-        write_file(DocumentIO.dumps(bundle), filename)
+    # def _savetestdata(self, analyzer_assigned_uuid):
+    #     TIMEFORMAT = '%Y-%m-%dT%H:%M:%SZ'
+    #     bundle = {
+    #         'format': 'Dashboard Bundle Format 1.2',
+    #         'test_runs': [
+    #             {
+    #                 'test_id': self.tagsdir,
+    #                 'analyzer_assigned_date': self.runner.starttime.strftime(TIMEFORMAT),
+    #                 'analyzer_assigned_uuid': analyzer_assigned_uuid,
+    #                 'time_check_performed': False,
+    #                 'test_results': []
+    #             }
+    #         ]
+    #     }
+    #     filename = os.path.join(self.resultsdir, 'testdata.json')
+    #     write_file(DocumentIO.dumps(bundle), filename)
 
     def run(self, element, context):
         raise NotImplementedError("%s: tag defined but not implemented!" %

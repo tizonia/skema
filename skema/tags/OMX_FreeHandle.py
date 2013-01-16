@@ -13,16 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
 
-from skema.omxil12 import *
+from skema.omxil12 import get_string_from_il_enum
+from skema.omxil12 import OMX_FreeHandle
 
 from skema.utils import log_api
+from skema.utils import log_line
 from skema.utils import log_result
-
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
 
 class tag_OMX_FreeHandle(skema.tag.SkemaTag):
     """
@@ -39,7 +37,7 @@ class tag_OMX_FreeHandle(skema.tag.SkemaTag):
             err = get_string_from_il_enum(interror, "OMX_Error")
             log_result (element.tag, err)
         else:
-            print_line ("%s -> '%s %s'" \
+            log_line ("%s -> '%s %s'" \
                 % (element.tag, \
                        "Could not find handle for", context.cnames[alias]))
 

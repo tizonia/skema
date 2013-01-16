@@ -13,18 +13,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
 
-from skema.omxil12 import *
+from skema.omxil12 import OMX_RoleOfComponentEnum
+from skema.omxil12 import OMX_STRING
+from skema.omxil12 import OMX_U32
+from skema.omxil12 import OMX_ERRORTYPE
+from skema.omxil12 import get_string_from_il_enum
 
 from skema.utils import log_api
 from skema.utils import log_line
-from skema.utils import log_param
 from skema.utils import log_result
 
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
 
 class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
     """
@@ -48,10 +48,10 @@ class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
             if (err == "OMX_ErrorNoMore"):
-                break;
+                break
 
             log_line ("Role #%d : %s" % (index, crole),  1)
-            index = index + 1;
+            index = index + 1
 
         if (err == "OMX_ErrorNoMore"):
             log_result(element.tag, "OMX_ErrorNone")

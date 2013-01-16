@@ -13,18 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
-import threading
 
-from skema.omxil12 import *
+from skema.omxil12 import get_il_enum_from_string
+from skema.omxil12 import OMX_EventCmdComplete
+from skema.omxil12 import OMX_EventBufferFlag
+from skema.omxil12 import OMX_EventPortSettingsChanged
 
 from skema.utils import log_line
 from skema.utils import log_api
-from skema.utils import log_result
 
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
 
 class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
     """
@@ -59,7 +57,7 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                         log_line ("%s '%s' '%s' has been received OK" \
                                         % (element.tag, name, evtstr))
                     else:
-                        log_line
+                        log_line ()
                         log_line ("%s '%s' '%s' TIMEDOUT" \
                                         % (element.tag, name, evtstr), 1)
             elif (evt == OMX_EventBufferFlag):

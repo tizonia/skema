@@ -13,19 +13,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
 
-from skema.omxil12 import *
+from skema.omxil12 import get_il_enum_from_string
+from skema.omxil12 import get_string_from_il_enum
 from skema.omxil12 import OMX_PARAM_CONTENTURITYPE
+from skema.omxil12 import OMX_GetParameter
 
 from skema.utils import log_api
 from skema.utils import log_line
 from skema.utils import log_param
 from skema.utils import log_result
 
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
+from ctypes import c_char_p
+from ctypes import sizeof
+from ctypes import cast
+from ctypes import byref
+
 
 class tag_OMX_GetContentURI(skema.tag.SkemaTag):
     """
@@ -57,7 +61,7 @@ class tag_OMX_GetContentURI(skema.tag.SkemaTag):
 
             log_line ()
             log_line ("%s" % param_struct.__class__.__name__, 1)
-            for name, val in param_type._fields_:
+            for name, _ in param_type._fields_:
                 if (name == "nVersion"):
                     log_line ("%s -> '%08x'" \
                                     % (name, param_struct.nVersion.nVersion), 1)

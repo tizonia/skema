@@ -131,22 +131,9 @@ def geturl(url, path=""):
     return filename
 
 
-def write_file(data, path):
-    with open(path, "w") as fd:
-        fd.write(data)
-
-def read_file(path):
-    global _fake_files
-    global _fake_paths
-    if _fake_files is not None:
-        if path in _fake_files:
-            return _fake_files[path]
-    if _fake_paths is not None:
-        if path in _fake_paths:
-            path = _fake_paths[path]
-    with open(path) as fd:
-        data = fd.read()
-    return data
+# def write_file(data, path):
+#     with open(path, "w") as fd:
+#         fd.write(data)
 
 
 def run_and_log(cmd, fd, quiet=False):

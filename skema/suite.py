@@ -15,12 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import hashlib
+"""
+Skema's suite-related base classes
+"""
+
 import os
 import glob
 import re
 import shutil
-import sys
 import time
 import logging
 
@@ -31,11 +33,9 @@ from uuid import uuid1
 from skema.api import SkemaSuiteIf
 from skema.config import get_config
 from skema.suiteutils import run_suite
-from skema.utils import write_file
-import skema.utils
 
 class SkemaSuite(SkemaSuiteIf):
-    """Base class for defining skel test suites.
+    """Base class for defining Skema test suites.
 
     This can be used by test definition files to create an object that contains
     the building blocks for installing tests, running them, and parsing the
@@ -110,7 +110,7 @@ class SkemaSuite(SkemaSuiteIf):
                 }
             ]
         }
-        filename = os.path.join(self.resultsdir, 'testdata.json')
+        #filename = os.path.join(self.resultsdir, 'testdata.json')
         #write_file(DocumentIO.dumps(bundle), filename)
 
     def run(self, quiet=False):

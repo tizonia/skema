@@ -13,17 +13,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
-import threading
 
-from skema.omxil12 import *
+from skema.omxil12 import get_il_enum_from_string
+from skema.omxil12 import get_string_from_il_enum
+from skema.omxil12 import OMX_SendCommand
 
 from skema.utils import log_api
 from skema.utils import log_result
 
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
+#from ctypes import *
+
 
 class tag_OMX_SendCommand(skema.tag.SkemaTag):
     """

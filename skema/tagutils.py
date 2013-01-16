@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
 import sys
 
 from skema.tags import *
@@ -43,6 +42,7 @@ def get_all_tags():
 def get_tag(tag_name):
     tags = get_all_tags()
     return tags.get(tag_name)
+
 
 def tagloader(tag_name):
     """

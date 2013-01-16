@@ -13,26 +13,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
 
-from skema.omxil12 import *
+from skema.omxil12 import get_string_from_il_enum
+from skema.omxil12 import get_il_enum_from_string
 from skema.omxil12 import OMX_AUDIO_PORTDEFINITIONTYPE
 from skema.omxil12 import OMX_VIDEO_PORTDEFINITIONTYPE
 from skema.omxil12 import OMX_IMAGE_PORTDEFINITIONTYPE
 from skema.omxil12 import OMX_OTHER_PORTDEFINITIONTYPE
+from skema.omxil12 import OMX_GetParameter
+from skema.omxil12 import OMX_SetParameter
 
 from skema.utils import log_line
 from skema.utils import log_api
 from skema.utils import log_result
 
-from types import *
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
+from ctypes import sizeof
+from ctypes import byref
 
 def decode_audio_portdef (param_struct, param2_type):
     log_line ("%s" % param2_type.__name__, 1)
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         if (name == "eEncoding"):
             encstr = get_string_from_il_enum (\
                 getattr(param_struct.format.audio, name), \
@@ -46,7 +47,7 @@ def decode_audio_portdef (param_struct, param2_type):
 
 def decode_video_portdef (param_struct, param2_type):
     log_line ("%s" % param2_type.__name__, 1)
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         if (name == "eCompressionFormat"):
             encstr = get_string_from_il_enum (\
                 getattr(param_struct.format.video, name), \
@@ -66,7 +67,7 @@ def decode_video_portdef (param_struct, param2_type):
 
 def decode_image_portdef (param_struct, param2_type):
     log_line ("%s" % param2_type.__name__, 1)
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         if (name == "eCompressionFormat"):
             encstr = get_string_from_il_enum (\
                 getattr(param_struct.format.image, name), \
@@ -84,7 +85,7 @@ def decode_image_portdef (param_struct, param2_type):
                           % (name, getattr(param_struct.format.image, name)),2)
 
 def encode_audio_portdef (param_struct, param2_type, element):
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
                 print (name)
@@ -92,7 +93,7 @@ def encode_audio_portdef (param_struct, param2_type, element):
 
 
 def encode_video_portdef (param_struct, param2_type, element):
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
                 print (name)
@@ -100,7 +101,7 @@ def encode_video_portdef (param_struct, param2_type, element):
 
 
 def encode_image_portdef (param_struct, param2_type, element):
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
                 print (name)
@@ -108,7 +109,7 @@ def encode_image_portdef (param_struct, param2_type, element):
 
 
 def encode_other_portdef (param_struct, param2_type, element):
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
                 print (name)

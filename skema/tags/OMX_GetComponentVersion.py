@@ -13,18 +13,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
 
-from skema.omxil12 import *
+from skema.omxil12 import OMX_STRING
+from skema.omxil12 import OMX_VERSIONTYPE
+from skema.omxil12 import OMX_UUIDTYPE
+from skema.omxil12 import struct_anon_1
+from skema.omxil12 import OMX_GetComponentVersion
+from skema.omxil12 import get_string_from_il_enum
 
 from skema.utils import log_api
 from skema.utils import log_line
 from skema.utils import log_param
 from skema.utils import log_result
 
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
+from ctypes import byref
 
 class tag_OMX_GetComponentVersion(skema.tag.SkemaTag):
     """
@@ -50,12 +53,12 @@ class tag_OMX_GetComponentVersion(skema.tag.SkemaTag):
 
             log_line ()
             log_line ("Component Version", 1)
-            for name, val in struct_anon_1._fields_:
+            for name, _ in struct_anon_1._fields_:
                 log_param (name, str(getattr(cversion.s, name)), 2)
 
             log_line ()
             log_line ("Spec Version", 1)
-            for name, val in struct_anon_1._fields_:
+            for name, _ in struct_anon_1._fields_:
                 log_param (name, str(getattr(specversion.s, name)), 2)
 
             log_result(element.tag, err)

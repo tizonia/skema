@@ -13,29 +13,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
 
-from skema.omxil12 import *
+from skema.omxil12 import get_string_from_il_enum
+from skema.omxil12 import get_il_enum_from_string
 from skema.omxil12 import OMX_AUDIO_PORTDEFINITIONTYPE
 from skema.omxil12 import OMX_VIDEO_PORTDEFINITIONTYPE
 from skema.omxil12 import OMX_IMAGE_PORTDEFINITIONTYPE
 from skema.omxil12 import OMX_OTHER_PORTDEFINITIONTYPE
+from skema.omxil12 import OMX_GetParameter
 
 from skema.utils import log_result
 from skema.utils import log_line
 from skema.utils import log_param
 from skema.utils import log_api
 
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
+from ctypes import sizeof
+from ctypes import byref
 
 
 # TODO: Code reuse. Move decode_ functions to a common place. They are
 # currently used in OMX_GetParameter.py and OMX_SetParameter.py
 def decode_audio_portdef (param_struct, param2_type):
     log_line ("%s" % param2_type.__name__, 1)
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         if (name == "eEncoding"):
             encstr = get_string_from_il_enum (\
                 getattr(param_struct.format.audio, name), \
@@ -49,7 +50,7 @@ def decode_audio_portdef (param_struct, param2_type):
 
 def decode_video_portdef (param_struct, param2_type):
     log_line ("%s" % param2_type.__name__, 1)
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         if (name == "eCompressionFormat"):
             encstr = get_string_from_il_enum (\
                 getattr(param_struct.format.video, name), \
@@ -69,7 +70,7 @@ def decode_video_portdef (param_struct, param2_type):
 
 def decode_image_portdef (param_struct, param2_type):
     log_line ("%s" % param2_type.__name__, 1)
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         if (name == "eCompressionFormat"):
             encstr = get_string_from_il_enum (\
                 getattr(param_struct.format.image, name), \
@@ -89,7 +90,7 @@ def decode_image_portdef (param_struct, param2_type):
 
 def decode_other_portdef (param_struct, param2_type):
     log_line ("%s" % param2_type.__name__, 1)
-    for name, val in param2_type._fields_:
+    for name, _ in param2_type._fields_:
         if (name == "eFormat"):
             encstr = get_string_from_il_enum (\
                 getattr(param_struct.format.other, name), \
@@ -127,7 +128,7 @@ class tag_OMX_GetParameter(skema.tag.SkemaTag):
             err = get_string_from_il_enum(interror, "OMX_Error")
             log_line ()
             log_line ("%s" % param_struct.__class__.__name__, 1)
-            for name, val in param_type._fields_:
+            for name, _ in param_type._fields_:
                 if (name == "nVersion"):
                     log_line ("%s -> '%08x'" \
                         % (name, param_struct.nVersion.nVersion),1)

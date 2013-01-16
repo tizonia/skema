@@ -16,11 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import sys
 import threading
 
-from ctypes import *
-from omxil12 import *
+from skema.omxil12 import OMX_CALLBACKTYPE
+
 
 class SkemaConfig(object):
     def __init__(self):

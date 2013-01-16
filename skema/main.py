@@ -15,9 +15,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import readline
 import skema.command
 
+def completer(text, state):
+    commands = ["example", None] #skema.command.get_all_cmds()
+    print commands
+    options = [i for i in commands if i.startswith(text)]
+    if state < len(options):
+        return options[state]
+    else:
+        return None
+
+
 def main(argv):
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(completer)
     argv = argv[1:]
     if not argv:
         argv = ['help']

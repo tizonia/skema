@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+Built-in Skema commands
+"""
+
 import os
 import sys
 from optparse import make_option
@@ -146,7 +150,6 @@ class cmd_list_installed_suites(skema.command.SkemaCmd):
     """
     def run(self):
         config = get_config()
-        print "Installed suites:"
         try:
             for dir in os.listdir(config.suitesdir):
                 print dir
@@ -200,7 +203,6 @@ class cmd_list_installed_tags(skema.command.SkemaCmd):
     """
     def run(self):
         config = get_config()
-        print "Installed tags:"
         try:
             for dir in os.listdir(config.tagsdir):
                 print dir
@@ -217,7 +219,6 @@ class cmd_list_suites(skema.command.SkemaCmd):
     def run(self):
         from skema import suites
         from pkgutil import walk_packages
-        #print "Known suites:"
         for importer, mod, ispkg in walk_packages(suites.__path__):
             print mod
 
@@ -228,7 +229,6 @@ class cmd_list_tags(skema.command.SkemaCmd):
     def run(self):
         from skema import tags
         from pkgutil import walk_packages
-        #print "Known tags:"
         for importer, mod, ispkg in walk_packages(tags.__path__):
             print mod
 

@@ -13,18 +13,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import skema.tag
 import threading
 
-from skema.omxil12 import *
-from skema.event import *
+from skema.omxil12 import OMX_ERRORTYPE
+from skema.omxil12 import OMX_HANDLETYPE
+from skema.omxil12 import OMX_U32
+from skema.omxil12 import OMX_PTR
+from skema.omxil12 import OMX_BUFFERHEADERTYPE
+from skema.omxil12 import get_string_from_il_enum
+from skema.omxil12 import UNCHECKED
+from skema.omxil12 import OMX_EVENTTYPE
+from skema.omxil12 import OMX_GetHandle
+from skema.omxil12 import OMX_ErrorNone
+
+from ctypes import CFUNCTYPE
+from ctypes import POINTER
+from ctypes import byref
+
+from skema.event import my_evt_hdler
+from skema.event import my_ebd_cback
+from skema.event import my_fbd_cback
 
 from skema.utils import log_api
 from skema.utils import log_result
 
-from ctypes import *
-from xml.etree.ElementTree import ElementTree as et
 
 class tag_OMX_GetHandle(skema.tag.SkemaTag):
     """
