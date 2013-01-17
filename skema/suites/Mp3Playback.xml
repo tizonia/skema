@@ -49,7 +49,7 @@
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr"
-                       port="0" uri="/home/joni/temp/tizonia_test_media/mp3/Emmas_Mini_-_Lost.mp3"
+                       port="0" uri="/home/joni/temp/tizonia-test-media/mp3/riff_rock.mp3"
                        expect="OMX_ErrorNone"/>
 
     <OMX_SetupTunnel outcomp="fr" outport="0" incomp="ad" inport="0"

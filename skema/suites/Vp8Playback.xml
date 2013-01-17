@@ -78,7 +78,7 @@
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr"
-                       port="0" uri="/home/joni/temp/tizonia_test_media/ivf/bbb_640x360_25fps_vp8_yuv420p.ivf"
+                       port="0" uri="/home/joni/temp/tizonia-test-media/ivf/bbb_640x360_25fps_vp8_yuv420p.ivf"
                        expect="OMX_ErrorNone"/>
 
     <OMX_SetupTunnel outcomp="fr" outport="0" incomp="vd" inport="0"
