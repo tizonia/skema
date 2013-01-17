@@ -77,6 +77,7 @@ class tag_OMX_GetHandle(skema.tag.SkemaTag):
                 context.cnames2[handle.value] = name
                 context.cmdevents[handle.value] = threading.Event()
                 context.eosevents[handle.value] = threading.Event()
+                context.settings_changed_events[handle.value] = threading.Event()
             else:
                 context.handles[alias] = OMX_HANDLETYPE()
 

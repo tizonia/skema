@@ -40,15 +40,16 @@ class SkemaConfig(object):
         self.cbacks  = OMX_CALLBACKTYPE()
 
         # Global Dictionaries
-        self.aliases   = dict() # comp name -> comp alias
-        self.cnames    = dict() # comp alias -> comp name
-        self.cnames2   = dict() # comp handle -> comp name
-        self.handles   = dict() # comp alias -> comp handle
-        self.cmdevents = dict() # comp comp handle -> cmd event
-        self.eosevents = dict() # comp comp handle -> eos event
-        self.params    = dict() # OMX_IndexParam... -> OMX_ param struct
-        self.configs   = dict() # OMX_IndexConfig... -> OMX_ config struct
-        self.result    = dict() # Test result
+        self.aliases                 = dict() # comp name -> comp alias
+        self.cnames                  = dict() # comp alias -> comp name
+        self.cnames2                 = dict() # comp handle -> comp name
+        self.handles                 = dict() # comp alias -> comp handle
+        self.cmdevents               = dict() # comp comp handle -> cmd event
+        self.eosevents               = dict() # comp comp handle -> eos event
+        self.settings_changed_events = dict() # comp comp handle -> eos event
+        self.params                  = dict() # OMX_IndexParam... -> OMX_ param struct
+        self.configs                 = dict() # OMX_IndexConfig... -> OMX_ config struct
+        self.result                  = dict() # Test result
 
 _config = None
 
