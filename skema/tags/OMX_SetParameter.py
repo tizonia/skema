@@ -88,7 +88,6 @@ def encode_audio_portdef (param_struct, param2_type, element):
     for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
-                print (name)
                 setattr(param_struct.format.audio, name, int(val2))
 
 
@@ -96,7 +95,6 @@ def encode_video_portdef (param_struct, param2_type, element):
     for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
-                print (name)
                 setattr(param_struct.format.video, name, int(val2))
 
 
@@ -104,7 +102,6 @@ def encode_image_portdef (param_struct, param2_type, element):
     for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
-                print (name)
                 setattr(param_struct.format.image, name, int(val2))
 
 
@@ -112,7 +109,6 @@ def encode_other_portdef (param_struct, param2_type, element):
     for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
-                print (name)
                 setattr(param_struct.format.other, name, int(val2))
 
 
@@ -146,7 +142,6 @@ class tag_OMX_SetParameter(skema.tag.SkemaTag):
             for name, val in param_type._fields_:
                 for name2, val2 in element.items():
                     if (name2 == name):
-                        print (name)
                         setattr(param_struct, name, int(val2))
 
             if (indexstr == "OMX_IndexParamPortDefinition"):
