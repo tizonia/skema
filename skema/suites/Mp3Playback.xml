@@ -137,10 +137,6 @@
                      peventdata="0"
                      timeout="1"/>
 
-    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
