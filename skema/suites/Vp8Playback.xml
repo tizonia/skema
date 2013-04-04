@@ -174,7 +174,7 @@
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
 
-    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+    <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
