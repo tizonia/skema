@@ -99,9 +99,9 @@ class cmd_run_suite(skema.command.SkemaCmd):
     arglist = ['*suitename']
     options = [make_option('-q', '--quiet', action='store_true',
                            default=False, dest='quiet'),
-#                make_option('-o', '--output',  action='store',
-#                            default=None, metavar="FILE",
-#                            help="Store processed suite output to FILE")
+               make_option('-o', '--output',  action='store',
+                           default=None, metavar="DIR",
+                           help="Store processed suite output to DIR")
                ]
 
     def run(self):
@@ -112,14 +112,7 @@ class cmd_run_suite(skema.command.SkemaCmd):
             sys.exit(1)
         suite = suiteloader(self.args[0])
         try:
-            result = suite.run(quiet=self.opts.quiet)
-            #if self.opts.output:
-                #from skema.dashboard import generate_bundle
-                #import json
-                #bundle = generate_bundle(result_id)
-                #with open(self.opts.output, "wt") as stream:
-                    #json.dump(bundle, stream)
-            return result
+            return suite.run(quiet=self.opts.quiet, output=self.opts.output)
 
         except Exception as strerror:
             print "Suite execution error: %s" % strerror

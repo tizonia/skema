@@ -51,7 +51,7 @@ class SkemaSuiteIf(object):
         """
 
     @abstractmethod
-    def run(self, quiet=False):
+    def run(self, quiet=False, output=None):
         # TODO: Document me
         pass
 

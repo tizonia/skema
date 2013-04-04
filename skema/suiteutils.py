@@ -41,27 +41,52 @@ def run_suite(scriptpath):
 
     config = get_config()
 
+    suites = []
+    cases = []
+    errors = dict()
+    last_tag = dict()
+    case = ""
     for elem in titer:
 
         if elem.tag == "Suite":
             continue
 
         if elem.tag == "Case":
-            log_line ("Use Case : '%s'"  % elem.get('name'))
+            case  = elem.get('name')
+            log_line ("Use Case : '%s'"  % case)
+            cases.append(case)
+            errors[case] = 0
+            result = 0
             continue
 
-        tag_func = get_tag(elem.tag)
+        if result == 0:
+            tag_func = get_tag(elem.tag)
+            if not tag_func:
+                log_line ("Tag '%s' not found. Exiting."  % elem.tag)
+                sys.exit(1)
 
-        if not tag_func:
-            log_line ("Tag '%s' not found"  % elem.tag)
-            return get_il_enum_from_string("OMX_ErrorUndefined")
+            result = tag_func.run(elem, config)
+            if result != 0:
+                log_result (elem.tag, get_string_from_il_enum(result, "OMX_Error"))
+                errors[case] = result
+            last_tag[case] = elem.tag
 
-        result = tag_func.run(elem, config)
-        if result != 0:
-            log_result (elem.tag, get_string_from_il_enum(result, "OMX_Error"))
-            return result
+    log_line()
+    log_line()
+    log_line("-------------------------------------------------------------------")
+    msg = "SUITE EXECUTION SUMMARY : " + str(len(cases)) + " test cases executed"
+    log_result (msg, get_string_from_il_enum(result, "OMX_Error"))
+    last_error = 0
+    for case in cases:
+        msg = "CASE : " + case + " (last tag was '" + last_tag[case] + "')"
+        log_result (msg, get_string_from_il_enum(errors[case], "OMX_Error"))
+        if errors[case] != 0:
+            last_error = errors[case]
+    log_line()
+    log_line("-------------------------------------------------------------------")
+    log_line()
 
-    return 0
+    return last_error
 
 def suiteloader(suitename):
     """

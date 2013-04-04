@@ -34,6 +34,7 @@ from skema.api import SkemaSuiteIf
 from skema.config import get_config
 from skema.suiteutils import run_suite
 from skema.utils import log_line
+from skema.utils import log_result
 from skema.omxil12 import get_string_from_il_enum
 
 class SkemaSuite(SkemaSuiteIf):
@@ -115,17 +116,26 @@ class SkemaSuite(SkemaSuiteIf):
         #filename = os.path.join(self.resultsdir, 'testdata.json')
         #write_file(DocumentIO.dumps(bundle), filename)
 
-    def run(self, quiet=False):
+    def run(self, quiet=False, output=None):
         if not self.runner:
             raise RuntimeError("no test runner defined for '%s'" %
                                 self.suitename)
         config = get_config()
         uuid = str(uuid1())
         suitesdir = os.path.join(config.suitesdir, self.suitename)
-        resultname = (self.suitename +
-                      str(time.mktime(datetime.utcnow().timetuple())))
-        self.resultsdir = os.path.join(config.resultsdir, resultname)
-        os.makedirs(self.resultsdir)
+        resultname = ""
+        if not output:
+            # Generate a unique name for the dir where the suite's log files
+            # will be stored
+            resultname = (self.suitename +
+                          str(time.mktime(datetime.utcnow().timetuple())))
+            self.resultsdir = os.path.join(config.resultsdir, resultname)
+            os.makedirs(self.resultsdir)
+        else:
+            self.resultsdir = output
+            if not os.path.exists (self.resultsdir):
+                os.makedirs(self.resultsdir)
+
         result = 0
         try:
             os.chdir(suitesdir)
@@ -135,19 +145,6 @@ class SkemaSuite(SkemaSuiteIf):
             self._savetestdata(uuid)
         finally:
             os.chdir(self.origdir)
-        # result_id = os.path.basename(self.resultsdir)
-
-        # TODO: Replace print with log_line
-        # log_line ("%s : COMPLETED WITH RESULT '%s'" \
-        #               % (self.suitename, \
-        #                      get_string_from_il_enum(result, "OMX_Error")))
-        # log_line ("%s : Log files can be found in '%s'" \
-        #               % (self.suitename, self.resultsdir))
-        print ("[%s] COMPLETED WITH RESULT '%s'" \
-                   % (self.suitename, \
-                          get_string_from_il_enum(result, "OMX_Error")))
-        print("[%s] Log files can be found in '%s'" % (self.suitename, \
-                                                           self.resultsdir))
         return result
 
     def parse(self, resultname):
@@ -216,7 +213,11 @@ class SkemaSuiteRunner(object):
             temp = config.fd
             config.fd = fd
             result = run_suite(scriptpath)
+            log_line()
+            log_line ("Log files located in '%s'" % resultsdir)
+            log_line()
             config.fd = temp
+
         logging.shutdown()
         return result
 
