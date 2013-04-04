@@ -80,7 +80,10 @@ class tag_OMX_GetHandle(skema.tag.SkemaTag):
                 context.settings_changed_events[handle.value] = threading.Event()
             else:
                 context.handles[alias] = OMX_HANDLETYPE()
-
-        log_result (element.tag, err)
+            log_result (element.tag, err)
+            return 0
+        else:
+            log_result (element.tag, err)
+            return interror
 
 tagobj = skema.tag.SkemaTag(tagname="OMX_GetHandle")

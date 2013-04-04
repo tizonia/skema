@@ -49,4 +49,9 @@ class tag_OMX_SendCommand(skema.tag.SkemaTag):
 
         log_result (element.tag + " '" + name + "'", err)
 
+        if (err == "OMX_ErrorNone"):
+            return 0
+        else:
+            return interror
+
 tagobj = skema.tag.SkemaTag(tagname="OMX_SendCommand")

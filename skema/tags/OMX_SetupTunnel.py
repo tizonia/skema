@@ -47,4 +47,10 @@ class tag_OMX_SetupTunnel(skema.tag.SkemaTag):
 
             log_result (element.tag, err)
 
+        if (err == "OMX_ErrorNone"):
+            return 0
+        else:
+            return interror
+
+
 tagobj = skema.tag.SkemaTag(tagname="OMX_SetupTunnel")

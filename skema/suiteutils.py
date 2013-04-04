@@ -26,7 +26,9 @@ from xml.etree.ElementTree import ElementTree as et
 from optparse import make_option
 
 import skema.command
+from skema.omxil12 import get_string_from_il_enum
 from skema.utils import log_line
+from skema.utils import log_result
 from skema.tagutils import get_tag
 from skema.config import get_config
 
@@ -45,17 +47,21 @@ def run_suite(scriptpath):
             continue
 
         if elem.tag == "Case":
-            log_line ("Use Case : %s"  % elem.get('name'))
+            log_line ("Use Case : '%s'"  % elem.get('name'))
             continue
 
         tag_func = get_tag(elem.tag)
 
         if not tag_func:
-            print "run_suite : tag [%s] not found" % elem.tag
-            return 1
+            log_line ("Tag '%s' not found"  % elem.tag)
+            return get_il_enum_from_string("OMX_ErrorUndefined")
 
-        tag_func.run(elem, config)
+        result = tag_func.run(elem, config)
+        if result != 0:
+            log_result (elem.tag, get_string_from_il_enum(result, "OMX_Error"))
+            return result
 
+    return 0
 
 def suiteloader(suitename):
     """

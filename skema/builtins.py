@@ -112,13 +112,14 @@ class cmd_run_suite(skema.command.SkemaCmd):
             sys.exit(1)
         suite = suiteloader(self.args[0])
         try:
-            result_id = suite.run(quiet=self.opts.quiet)
+            result = suite.run(quiet=self.opts.quiet)
             #if self.opts.output:
                 #from skema.dashboard import generate_bundle
                 #import json
                 #bundle = generate_bundle(result_id)
                 #with open(self.opts.output, "wt") as stream:
                     #json.dump(bundle, stream)
+            return result
 
         except Exception as strerror:
             print "Suite execution error: %s" % strerror

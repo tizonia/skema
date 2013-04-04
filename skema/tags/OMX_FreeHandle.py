@@ -36,9 +36,15 @@ class tag_OMX_FreeHandle(skema.tag.SkemaTag):
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
             log_result (element.tag, err)
+            if (err == "OMX_ErrorNone"):
+                return 0
+            else:
+                return interror
+
         else:
             log_line ("%s -> '%s %s'" \
                 % (element.tag, \
                        "Could not find handle for", context.cnames[alias]))
+            return get_il_enum_from_string("OMX_ErrorUndefined")
 
 tagobj = skema.tag.SkemaTag(tagname="OMX_FreeHandle")

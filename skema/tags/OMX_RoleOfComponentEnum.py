@@ -47,7 +47,7 @@ class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
             omxerror = OMX_RoleOfComponentEnum(crole, name, index)
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
-            if (err == "OMX_ErrorNoMore"):
+            if (err == "OMX_ErrorNoMore") or (err != "OMX_ErrorNone"):
                 break
 
             log_line ("Role #%d : %s" % (index, crole),  1)
@@ -55,5 +55,9 @@ class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
 
         if (err == "OMX_ErrorNoMore"):
             log_result(element.tag, "OMX_ErrorNone")
+            return 0
+        else:
+            log_result(element.tag, err)
+            return interror
 
 tagobj = skema.tag.SkemaTag(tagname="OMX_RoleOfComponentEnum")

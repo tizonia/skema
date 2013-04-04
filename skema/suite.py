@@ -33,6 +33,8 @@ from uuid import uuid1
 from skema.api import SkemaSuiteIf
 from skema.config import get_config
 from skema.suiteutils import run_suite
+from skema.utils import log_line
+from skema.omxil12 import get_string_from_il_enum
 
 class SkemaSuite(SkemaSuiteIf):
     """Base class for defining Skema test suites.
@@ -124,17 +126,29 @@ class SkemaSuite(SkemaSuiteIf):
                       str(time.mktime(datetime.utcnow().timetuple())))
         self.resultsdir = os.path.join(config.resultsdir, resultname)
         os.makedirs(self.resultsdir)
+        result = 0
         try:
             os.chdir(suitesdir)
             scriptpath = glob.glob( os.path.join(suitesdir, '*.xml') )[0]
-            self.runner.run(scriptpath,
+            result = self.runner.run(scriptpath,
                             self.resultsdir, quiet=quiet)
             self._savetestdata(uuid)
         finally:
             os.chdir(self.origdir)
-        result_id = os.path.basename(self.resultsdir)
-        print("SUITE RUN COMPLETE: Log file is in '%s'" % self.resultsdir)
-        return result_id
+        # result_id = os.path.basename(self.resultsdir)
+
+        # TODO: Replace print with log_line
+        # log_line ("%s : COMPLETED WITH RESULT '%s'" \
+        #               % (self.suitename, \
+        #                      get_string_from_il_enum(result, "OMX_Error")))
+        # log_line ("%s : Log files can be found in '%s'" \
+        #               % (self.suitename, self.resultsdir))
+        print ("[%s] COMPLETED WITH RESULT '%s'" \
+                   % (self.suitename, \
+                          get_string_from_il_enum(result, "OMX_Error")))
+        print("[%s] Log files can be found in '%s'" % (self.suitename, \
+                                                           self.resultsdir))
+        return result
 
     def parse(self, resultname):
         if not self.parser:
@@ -195,19 +209,22 @@ class SkemaSuiteRunner(object):
                                  level=logging.DEBUG)
         logging.info("log")
 
+        result = 0
         with open(outputlog, 'a') as fd:
             config = get_config()
             config.quiet = quiet
             temp = config.fd
             config.fd = fd
-            run_suite(scriptpath)
+            result = run_suite(scriptpath)
             config.fd = temp
         logging.shutdown()
+        return result
 
     def run(self, scriptpath, resultsdir, quiet=False):
         self.starttime = datetime.utcnow()
-        self._runsteps(scriptpath, resultsdir, quiet=quiet)
+        result = self._runsteps(scriptpath, resultsdir, quiet=quiet)
         self.endtime = datetime.utcnow()
+        return result
 
 
 class SkemaSuiteParser(object):

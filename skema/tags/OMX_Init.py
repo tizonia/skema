@@ -33,5 +33,9 @@ class tag_OMX_Init(skema.tag.SkemaTag):
         interror = int(omxerror & 0xffffffff)
         err = get_string_from_il_enum(interror, "OMX_Error")
         log_result(element.tag, err)
+        if (err == "OMX_ErrorNone"):
+            return 0
+        else:
+            return interror
 
 tagobj = skema.tag.SkemaTag(tagname="OMX_Init")

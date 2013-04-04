@@ -47,4 +47,13 @@ class tag_OMX_TeardownTunnel(skema.tag.SkemaTag):
 
             log_result (element.tag, err)
 
+            if (err == "OMX_ErrorNone"):
+                return 0
+            else:
+                return interror
+
+        else:
+            log_result (element.tag, "OMX_ErrorUndefined")
+            return get_il_enum_from_string("OMX_ErrorUndefined")
+
 tagobj = skema.tag.SkemaTag(tagname="OMX_TeardownTunnel")
