@@ -27,8 +27,7 @@ class tag_OMX_Init(skema.tag.SkemaTag):
 
     """
     def run(self, element, context):
-        ilcorelib = element.get('ilcorelib')
-        log_api ("%s '%s'" % (element.tag, ilcorelib))
+        log_api ("%s" % element.tag)
         omxerror = OMX_Init()
         interror = int(omxerror & 0xffffffff)
         err = get_string_from_il_enum(interror, "OMX_Error")

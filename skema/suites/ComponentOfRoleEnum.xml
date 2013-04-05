@@ -6,7 +6,7 @@
 
   <Case name="ComponentOfRoleEnum">
 
-    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+    <OMX_Init />
 
     <OMX_ComponentOfRoleEnum role="tizonia_test_component.role1" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="tizonia_test_component.role2" expect="OMX_ErrorNone" />

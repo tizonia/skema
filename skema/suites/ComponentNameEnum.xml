@@ -6,7 +6,7 @@
 
   <Case name="ComponentNameEnum">
 
-    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+    <OMX_Init />
 
     <OMX_ComponentNameEnum expect="OMX_ErrorNone" />
 

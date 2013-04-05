@@ -6,7 +6,7 @@
 
   <Case name="RoleOfComponentEnum">
 
-    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+    <OMX_Init />
 
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.tizonia.test_component" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.ilcore.test_component" expect="OMX_ErrorNone" />

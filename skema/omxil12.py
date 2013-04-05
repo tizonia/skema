@@ -23,7 +23,7 @@ __docformat__ =  'restructuredtext'
 
 # Begin preamble
 
-import ctypes, os, sys
+import ctypes, os, sys, pwd
 from ctypes import *
 
 _int_types = (c_int16, c_int32)
@@ -316,7 +316,6 @@ class _variadic_function(object):
 # End preamble
 
 _libs = {}
-_libdirs = ['/home/joni/temp/lib']
 
 # Begin loader
 
@@ -588,7 +587,7 @@ loaderclass = {
 loader = loaderclass.get(sys.platform, PosixLibraryLoader)()
 
 def add_library_search_dirs(other_dirs):
-    loader.other_dirs = other_dirs
+    loader.other_dirs.extend(other_dirs)
 
 load_library = loader.load_library
 
@@ -596,15 +595,22 @@ del loaderclass
 
 # End loader
 
+# By default, add some additional library search paths
+
+# /usr/local/lib
 add_library_search_dirs(['/usr/local/lib'])
-add_library_search_dirs(['/home/joni/temp/lib'])
+
+# /home/user/temp/lib
+userdir = pwd.getpwuid(os.getuid())[5]
+usertmpdir = os.path.join(userdir, "temp")
+usertmplibdir = os.path.join(usertmpdir, "lib")
+add_library_search_dirs([usertmplibdir])
 
 # Begin libraries
 
 _libs["libtizcore.so"] = load_library("libtizcore.so")
-_libs["libtizonia.so"] = load_library("libtizonia.so")
 
-# 2 libraries
+# 1 library
 # End libraries
 
 # No modules

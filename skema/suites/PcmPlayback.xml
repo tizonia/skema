@@ -4,7 +4,8 @@
 
 <Suite>
   <Case name="PcmPlayback48Khz">
-    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+
+    <OMX_Init />
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
     <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
@@ -246,7 +247,9 @@
 
     <OMX_FreeHandle alias="ar" />
     <OMX_FreeHandle alias="fr" />
+
     <OMX_Deinit />
+
   </Case>
 
 </Suite>

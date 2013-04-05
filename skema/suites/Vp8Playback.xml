@@ -4,7 +4,7 @@
 
 <Suite>
   <Case name="Vp8Playback101">
-    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+    <OMX_Init />
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
     <OMX_GetHandle name="OMX.Aratelia.video_decoder.vp8" alias="vd" />
@@ -220,7 +220,9 @@
     <OMX_FreeHandle alias="vr" />
     <OMX_FreeHandle alias="vd" />
     <OMX_FreeHandle alias="fr" />
+
     <OMX_Deinit />
+
   </Case>
 
 </Suite>
