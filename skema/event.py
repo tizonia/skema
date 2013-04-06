@@ -37,18 +37,21 @@ def my_evt_hdler(a, b, c, d, e, f):
         cmdstr = get_string_from_il_enum(d, "OMX_Command")
         if (d == OMX_CommandStateSet):
             statestr = get_string_from_il_enum(e, "OMX_State")
+            log_line ()
             log_api("EventHandler '%s'" % (name))
             log_line ()
             log_line ("Received -> '%s' '%s' '%s'" \
                             % (evtstr, cmdstr, statestr), 1)
     elif (c == OMX_EventBufferFlag):
         config.eosevents[a].set()
+        log_line ()
         log_api("EventHandler '%s'"  % (name))
         log_line ()
         log_line ("Received -> '%s' Port '%d'" \
                         % (evtstr, d), 1)
     elif (c == OMX_EventPortSettingsChanged):
         config.settings_changed_events[a].set()
+        log_line ()
         log_api("EventHandler '%s'"  % (name))
         log_line ()
         log_line ("Received -> '%s' Port '%d'" \

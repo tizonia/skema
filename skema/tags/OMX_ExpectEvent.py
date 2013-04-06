@@ -55,8 +55,9 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                                     % (element.tag, evtstr, name), 1)
                     context.cmdevents[handle.value].wait(int(timeoutstr))
                     if (context.cmdevents[handle.value].is_set()):
+                        log_line ()
                         log_line ("%s '%s' '%s' received OK" \
-                                        % (element.tag, name, evtstr))
+                                      % (element.tag, name, evtstr))
                     else:
                         msg = element.tag + " '" + name + "' " + " '" + evtstr + "'"
                         log_line ()
