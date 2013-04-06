@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="LoadedIdleNonSupplierFirst">
+
+    <OMX_Init />
+
+    <!-- Load a couple of components -->
+    <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+
+    <!-- Set some random nBufferCountActual value to be used in the tunnel -->
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <!-- Set the media file -->
+    <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetContentURI alias="fr" port="0"
+                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       expect="OMX_ErrorNone"/>
+
+    <!-- Set output port as supplier -->
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <!-- Setup a tunnel -->
+    <OMX_SetupTunnel outcomp="fr" outport="0" incomp="ar" inport="0"
+                     expect="OMX_ErrorNone"/>
+
+    <!-- Transition to OMX_StateIdle : non-supplier component first -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+
+    <!-- Wait 1 sec -->
+    <OMX_Wait delay="1"/>
+
+
+<!-- Transition back to OMX_StateLoaded : non-supplier first -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+
+    <OMX_FreeHandle alias="ar" />
+    <OMX_FreeHandle alias="fr" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+  <Case name="LoadedIdleSupplierFirst">
+
+    <OMX_Init />
+
+    <!-- Load a couple of components -->
+    <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+
+    <!-- Set some random nBufferCountActual value to be used in the tunnel -->
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <!-- Set the media file -->
+    <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetContentURI alias="fr" port="0"
+                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       expect="OMX_ErrorNone"/>
+
+    <!-- Set output port as supplier -->
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <!-- Setup a tunnel -->
+    <OMX_SetupTunnel outcomp="fr" outport="0" incomp="ar" inport="0"
+                     expect="OMX_ErrorNone"/>
+
+    <!-- Transition to OMX_StateIdle : supplier component first -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+
+    <!-- Wait 1 sec -->
+    <OMX_Wait delay="1"/>
+
+
+<!-- Transition back to OMX_StateLoaded : supplier first -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+
+    <OMX_FreeHandle alias="ar" />
+    <OMX_FreeHandle alias="fr" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+  <Case name="IdleExecutingNonSupplierFirst">
+
+    <OMX_Init />
+
+    <!-- Load a couple of components -->
+    <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+
+    <!-- Set some random nBufferCountActual value to be used in the tunnel -->
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <!-- Set the media file -->
+    <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetContentURI alias="fr" port="0"
+                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       expect="OMX_ErrorNone"/>
+
+    <!-- Set output port as supplier -->
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <!-- Setup a tunnel -->
+    <OMX_SetupTunnel outcomp="fr" outport="0" incomp="ar" inport="0"
+                     expect="OMX_ErrorNone"/>
+
+    <!-- Transition to OMX_StateIdle : non-supplier component first -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition to OMX_StateExecuting : non-supplier first -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
+
+    <!-- Wait 1 sec -->
+    <OMX_Wait delay="1"/>
+
+    <!-- Transition back to OMX_StateIdle : non-supplier first -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+<!-- Transition back to OMX_StateLoaded : non-supplier first -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+
+    <OMX_FreeHandle alias="ar" />
+    <OMX_FreeHandle alias="fr" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+  <Case name="IdleExecutingSupplierFirst">
+
+    <OMX_Init />
+
+    <!-- Load a couple of components -->
+    <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+
+    <!-- Set some random nBufferCountActual value to be used in the tunnel -->
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <!-- Set the media file -->
+    <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetContentURI alias="fr" port="0"
+                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       expect="OMX_ErrorNone"/>
+
+    <!-- Set output port as supplier -->
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <!-- Setup a tunnel -->
+    <OMX_SetupTunnel outcomp="fr" outport="0" incomp="ar" inport="0"
+                     expect="OMX_ErrorNone"/>
+
+    <!-- Transition to OMX_StateIdle : supplier component first -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition to OMX_StateExecuting : supplier first -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
+
+    <!-- Wait 1 sec -->
+    <OMX_Wait delay="1"/>
+
+    <!-- Transition back to OMX_StateIdle : supplier first -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition back to OMX_StateLoaded : supplier first -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+
+    <OMX_FreeHandle alias="ar" />
+    <OMX_FreeHandle alias="fr" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>
