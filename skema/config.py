@@ -20,7 +20,6 @@ import threading
 
 from skema.omxil12 import OMX_CALLBACKTYPE
 
-
 class SkemaConfig(object):
     def __init__(self):
         home       = os.environ.get('HOME', '/')
@@ -36,8 +35,9 @@ class SkemaConfig(object):
         self.fd         = file(os.devnull)
         self.quiet      = True
 
-        self.ilevent = threading.Event()
-        self.cbacks  = OMX_CALLBACKTYPE()
+        self.ilevent     = threading.Event()
+        self.cbacks      = OMX_CALLBACKTYPE()
+        self.base_profile_mgr = None
 
         # Global Dictionaries
         self.aliases                 = dict() # comp name -> comp alias

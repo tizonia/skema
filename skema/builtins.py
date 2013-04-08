@@ -116,6 +116,8 @@ class cmd_run_suite(skema.command.SkemaCmd):
 
         except Exception as strerror:
             print "Suite execution error: %s" % strerror
+            config = get_config()
+            config.base_profile_mgr.stop()
             sys.exit(1)
 
 class cmd_uninstall_suite(skema.command.SkemaCmd):

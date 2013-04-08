@@ -71,6 +71,9 @@ def run_suite(scriptpath):
                 errors[case] = result
             last_tag[case] = elem.tag
 
+    if result != 0:
+        config.base_profile_mgr.stop()
+
     log_line()
     log_line()
     log_line("-------------------------------------------------------------------")

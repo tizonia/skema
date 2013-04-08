@@ -15,30 +15,27 @@
 
 import skema.tag
 
-from skema.omxil12 import OMX_Deinit
-from skema.omxil12 import get_string_from_il_enum
-
 from skema.utils import log_api
 from skema.utils import log_result
 
-class tag_OMX_Deinit(skema.tag.SkemaTag):
+
+class tag_OMX_BaseProfileFreeBuffers(skema.tag.SkemaTag):
     """
 
     """
     def run(self, element, context):
-        log_api ("%s" % element.tag)
+        alias       = element.get('alias')
+        name        = context.cnames[alias]
+        portstr     = element.get('port')
+        howmanystr  = element.get('howmany')
 
-        omxerror = OMX_Deinit()
-        interror = int(omxerror & 0xffffffff)
-        err = get_string_from_il_enum(interror, "OMX_Error")
-        log_result(element.tag, err)
+        log_api ("%s %s:Port-%s' 'Howmany:%s'" \
+                     % (element.tag, name, portstr, howmanystr))
 
-        # Deinit here the base profile manager
-        context.base_profile_mgr.stop()
+        context.base_profile_mgr.free_buffers(alias, portstr, howmanystr)
 
-        if (err == "OMX_ErrorNone"):
-            return 0
-        else:
-            return interror
+        log_result (element.tag, "OMX_ErrorNone")
 
-tagobj = skema.tag.SkemaTag(tagname="OMX_Deinit")
+        return 0
+
+tagobj = skema.tag.SkemaTag(tagname="OMX_BaseProfileFreeBuffers")

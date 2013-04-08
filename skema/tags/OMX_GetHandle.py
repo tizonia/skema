@@ -44,9 +44,9 @@ class tag_OMX_GetHandle(skema.tag.SkemaTag):
 
     """
     def run(self, element, context):
-        name = element.get('name')
-        alias = element.get('alias')
-        expectstr = element.get('expect', default='OMX_ErrorNone')
+        name                  = element.get('name')
+        alias                 = element.get('alias')
+        expectstr             = element.get('expect', default='OMX_ErrorNone')
         context.cnames[alias] = name
         context.aliases[name] = alias
 
@@ -61,22 +61,22 @@ class tag_OMX_GetHandle(skema.tag.SkemaTag):
         FBD_CBACK_TYPE = CFUNCTYPE(UNCHECKED(OMX_ERRORTYPE), OMX_HANDLETYPE,
                                    OMX_PTR, POINTER(OMX_BUFFERHEADERTYPE))
 
-        context.cbacks.EventHandler = EVT_HDLER_TYPE(my_evt_hdler)
+        context.cbacks.EventHandler    = EVT_HDLER_TYPE(my_evt_hdler)
         context.cbacks.EmptyBufferDone = EBD_CBACK_TYPE(my_ebd_cback)
-        context.cbacks.FillBufferDone = FBD_CBACK_TYPE(my_fbd_cback)
+        context.cbacks.FillBufferDone  = FBD_CBACK_TYPE(my_fbd_cback)
 
         omxerror = OMX_GetHandle(byref(handle), name, None,
                                  byref(context.cbacks))
 
         interror = int(omxerror & 0xffffffff)
-        err = get_string_from_il_enum(interror, "OMX_Error")
+        err      = get_string_from_il_enum(interror, "OMX_Error")
 
         if (expectstr == err):
             if (interror == OMX_ErrorNone):
-                context.handles[alias] = handle
-                context.cnames2[handle.value] = name
-                context.cmdevents[handle.value] = threading.Event()
-                context.eosevents[handle.value] = threading.Event()
+                context.handles[alias]                        = handle
+                context.cnames2[handle.value]                 = name
+                context.cmdevents[handle.value]               = threading.Event()
+                context.eosevents[handle.value]               = threading.Event()
                 context.settings_changed_events[handle.value] = threading.Event()
             else:
                 context.handles[alias] = OMX_HANDLETYPE()

@@ -18,8 +18,11 @@ import skema.tag
 from skema.omxil12 import OMX_Init
 from skema.omxil12 import get_string_from_il_enum
 
+from skema.omxil12 import get_string_from_il_enum
+
 from skema.utils import log_api
 from skema.utils import log_result
+from skema.baseprofile import SkemaBaseProfileManager
 
 
 class tag_OMX_Init(skema.tag.SkemaTag):
@@ -28,10 +31,17 @@ class tag_OMX_Init(skema.tag.SkemaTag):
     """
     def run(self, element, context):
         log_api ("%s" % element.tag)
+
+        # Init here the base profile manager, in case its needed
+        context.base_profile_mgr = SkemaBaseProfileManager()
+        context.base_profile_mgr.start()
+
         omxerror = OMX_Init()
         interror = int(omxerror & 0xffffffff)
-        err = get_string_from_il_enum(interror, "OMX_Error")
+        err      = get_string_from_il_enum(interror, "OMX_Error")
+
         log_result(element.tag, err)
+
         if (err == "OMX_ErrorNone"):
             return 0
         else:

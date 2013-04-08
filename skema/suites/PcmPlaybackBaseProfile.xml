@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="PcmPlaybackBaseProfile48Khz">
+
+    <OMX_Init />
+
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+
+    <OMX_GetComponentVersion alias="ar" />
+
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfilePort alias="ar" port="0" allocator="true" mode="auto"
+                         uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"/>
+
+    <!-- Transition to OMX_StateIdle -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfileAllocateBuffers alias="ar" port="0" howmany="all" />
+
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition to OMX_StateExecuting -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
+
+    <OMX_BaseProfileStartBufferExchange alias="ar" port="0" />
+
+    <!-- Wait for EOS -->
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventBufferFlag"
+                     ndata1="0"
+                     ndata2="1"
+                     peventdata="0"
+                     timeout="12000"/>
+
+    <!-- Transition back to OMX_StateIdle -->
+<!--     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet" -->
+<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
+<!--                      expect="OMX_ErrorNone"/> -->
+<!--     <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete" -->
+<!--                      ndata1="OMX_CommandStateSet" -->
+<!--                      ndata2="OMX_StateIdle" -->
+<!--                      peventdata="0" -->
+<!--                      timeout="1"/> -->
+
+    <!-- Transition back to OMX_StateLoaded -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfileFreeBuffers alias="ar" port="0" howmany="all" />
+
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <OMX_FreeHandle alias="ar" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>

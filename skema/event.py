@@ -60,7 +60,17 @@ def my_evt_hdler(a, b, c, d, e, f):
     return 0
 
 def my_ebd_cback(a, b, c):
+    config = get_config()
+    name   = config.cnames2[a]
+    alias  = config.aliases[name]
+    handle = config.handles[alias]
+    config.base_profile_mgr.empty_buffer_done(handle,alias,c)
     return 0
 
 def my_fbd_cback(a, b, c):
+    config = get_config()
+    name   = config.cnames2[a]
+    alias  = config.aliases[name]
+    handle = config.handles[alias]
+    config.base_profile_mgr.fill_buffer_done(a,alias,c)
     return 0

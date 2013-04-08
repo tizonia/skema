@@ -15,6 +15,7 @@
 
 import skema.tag
 
+from skema.omxil12 import __all_indexes__ as omxil12_indexes
 from skema.omxil12 import get_string_from_il_enum
 from skema.omxil12 import get_il_enum_from_string
 from skema.omxil12 import OMX_AUDIO_PORTDEFINITIONTYPE
@@ -115,8 +116,9 @@ class tag_OMX_GetParameter(skema.tag.SkemaTag):
                        "" % (element.tag, indexstr, name, int(portstr)))
         handle = context.handles[alias]
         index = get_il_enum_from_string(indexstr)
-        param_type = skema.omxil12.__all_indexes__[indexstr]
-        param_struct = param_type()
+
+        param_type         = omxil12_indexes[indexstr]
+        param_struct       = param_type()
         param_struct.nSize = sizeof(param_type)
 
         if (portstr != None):
