@@ -47,19 +47,20 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                 if (context.cmdevents[handle.value].is_set()):
                     context.cmdevents[handle.value].clear()
                     log_line ()
-                    log_line ("%s '%s' '%s' was received OK" \
-                                    % (element.tag, name, evtstr), 1)
+                    log_line ("%s '%s' '%s' '%s' was received OK"     \
+                                    % (element.tag, name, evtstr, ndata2str), 1)
                 else:
                     log_line ()
-                    log_line ("%s Waiting for '%s' from '%s'" \
-                                    % (element.tag, evtstr, name), 1)
+                    log_line ("%s Waiting for '%s' '%s' from '%s'"    \
+                                    % (element.tag, evtstr, ndata2str, name), 1)
                     context.cmdevents[handle.value].wait(int(timeoutstr))
                     if (context.cmdevents[handle.value].is_set()):
                         log_line ()
-                        log_line ("%s '%s' '%s' received OK" \
-                                      % (element.tag, name, evtstr))
+                        log_line ("%s '%s' '%s' '%s' received OK"     \
+                                      % (element.tag, name, evtstr, ndata2str))
                     else:
-                        msg = element.tag + " '" + name + "' " + " '" + evtstr + "'"
+                        msg = element.tag + " '" + name + "' " + " '" \
+                            + evtstr + "' " + ndata2str + "'"
                         log_line ()
                         log_result (msg, "OMX_ErrorTimeout")
                         return get_il_enum_from_string("OMX_ErrorTimeout")
@@ -68,19 +69,20 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                 if (context.eosevents[handle.value].is_set()):
                     context.eosevents[handle.value].clear()
                     log_line ()
-                    log_line ("%s '%s' '%s' was received OK" \
+                    log_line ("%s '%s' '%s' was received OK"          \
                                     % (element.tag, name, evtstr), 1)
                 else:
                     log_line ()
-                    log_line ("%s Waiting for '%s' from '%s'" \
+                    log_line ("%s Waiting for '%s' from '%s'"         \
                                     % (element.tag, evtstr, name), 1)
                     context.eosevents[handle.value].wait(int(timeoutstr))
                     if (context.eosevents[handle.value].is_set()):
                         log_line ()
-                        log_line ("%s '%s' '%s' received OK" \
+                        log_line ("%s '%s' '%s' received OK"          \
                                         % (element.tag, name, evtstr))
                     else:
-                        msg = element.tag + " '" + name + "' " + " '" + evtstr + "'"
+                        msg = element.tag + " '" + name + "' " + " '" \
+                            + evtstr + "'"
                         log_line ()
                         log_result (msg, "OMX_ErrorTimeout")
                         return get_il_enum_from_string("OMX_ErrorTimeout")
@@ -89,19 +91,21 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                 if (context.settings_changed_events[handle.value].is_set()):
                     context.settings_changed_events[handle.value].clear()
                     log_line ()
-                    log_line ("%s '%s' '%s' was received OK" \
+                    log_line ("%s '%s' '%s' was received OK"            \
                                     % (element.tag, name, evtstr), 1)
                 else:
                     log_line ()
-                    log_line ("%s Waiting for '%s' from '%s'" \
+                    log_line ("%s Waiting for '%s' from '%s'"           \
                                     % (element.tag, evtstr, name), 1)
-                    context.settings_changed_events[handle.value].wait(int(timeoutstr))
+                    context.settings_changed_events[handle.value].      \
+                        wait(int(timeoutstr))
                     if (context.settings_changed_events[handle.value].is_set()):
                         log_line ()
-                        log_line ("%s '%s' '%s' received OK" \
+                        log_line ("%s '%s' '%s' received OK"            \
                                         % (element.tag, name, evtstr))
                     else:
-                        msg = element.tag + " '" + name + "' " + " '" + evtstr + "'"
+                        msg = element.tag + " '" + name + "' " + " '" + \
+                            evtstr + "'"
                         log_line ()
                         log_result (msg, "OMX_ErrorTimeout")
                         return get_il_enum_from_string("OMX_ErrorTimeout")
