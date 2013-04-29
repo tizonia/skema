@@ -21,6 +21,8 @@ from skema.omxil12 import OMX_UUIDTYPE
 from skema.omxil12 import struct_anon_1
 from skema.omxil12 import OMX_GetComponentVersion
 from skema.omxil12 import get_string_from_il_enum
+from skema.omxil12 import OMX_MAX_STRINGNAME_SIZE
+
 
 from skema.utils import log_api
 from skema.utils import log_line
@@ -28,28 +30,38 @@ from skema.utils import log_param
 from skema.utils import log_result
 
 from ctypes import byref
+from ctypes import create_string_buffer
+from ctypes import c_ubyte
+from ctypes import c_char
+from ctypes import c_char_p
+from ctypes import POINTER
+from ctypes import cast
 
 class tag_OMX_GetComponentVersion(skema.tag.SkemaTag):
     """
 
     """
     def run(self, element, context):
-        alias = element.get('alias')
-        name = context.cnames[alias]
+        alias  = element.get('alias')
+        name   = context.cnames[alias]
         log_api ("%s '%s'" % (element.tag, name))
         handle = context.handles[alias]
-        cname = OMX_STRING()
-        #cname = create_string_buffer(OMX_MAX_STRINGNAME_SIZE)
+        cname = (c_ubyte * OMX_MAX_STRINGNAME_SIZE)()
         cversion = OMX_VERSIONTYPE()
         specversion = OMX_VERSIONTYPE()
         cuuid = OMX_UUIDTYPE()
         if (handle != None):
-            omxerror = OMX_GetComponentVersion(handle, cname,
+            omxerror = OMX_GetComponentVersion(handle, cast(cname, POINTER(c_char)),
                                                byref(cversion),
                                                byref(specversion),
                                                byref(cuuid))
             interror = int(omxerror & 0xffffffff)
+
             err = get_string_from_il_enum(interror, "OMX_Error")
+
+            log_line ()
+            msg = "Component Name : " + cast(cname, c_char_p).value
+            log_line (msg, 1)
 
             log_line ()
             log_line ("Component Version", 1)

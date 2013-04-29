@@ -53,14 +53,14 @@
                      timeout="12000"/>
 
     <!-- Transition back to OMX_StateIdle -->
-<!--     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
 
     <!-- Transition back to OMX_StateLoaded -->
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"

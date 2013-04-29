@@ -45,7 +45,6 @@ from ctypes import cast
 from ctypes import addressof
 from ctypes import POINTER
 from ctypes import c_ubyte
-from ctypes import c_char_p
 from ctypes import memmove
 
 class SkemaBaseProfileCmdIf(object):
