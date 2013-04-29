@@ -36,7 +36,7 @@ class tag_OMX_ComponentOfRoleEnum(skema.tag.SkemaTag):
         role = element.get('role')
         log_api ("%s '%s'" % (element.tag, role))
 
-        cname = OMX_STRING()
+        cname = (c_ubyte * OMX_MAX_STRINGNAME_SIZE)()
         index = OMX_U32()
         index = 0
         err = OMX_ERRORTYPE()
@@ -45,13 +45,15 @@ class tag_OMX_ComponentOfRoleEnum(skema.tag.SkemaTag):
 
         while True:
 
-            omxerror = OMX_ComponentOfRoleEnum(cname, role, index)
+            omxerror = OMX_ComponentOfRoleEnum(cast(cname, POINTER(c_char)),
+                                               role, index)
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
             if (err == "OMX_ErrorNoMore") or (err != "OMX_ErrorNone"):
                 break
 
-            log_line ("Component #%d : %s" % (index, cname),  1)
+            log_line ("Component #%d : %s" \
+                          % (index, cast(cname, c_char_p).value),  1)
             index = index + 1
 
         if (err == "OMX_ErrorNoMore"):

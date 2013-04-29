@@ -26,6 +26,12 @@ from skema.utils import log_api
 from skema.utils import log_line
 from skema.utils import log_result
 
+from ctypes import c_ubyte
+from ctypes import c_char
+from ctypes import c_char_p
+from ctypes import POINTER
+from ctypes import cast
+
 class tag_OMX_ComponentNameEnum(skema.tag.SkemaTag):
     """
 
@@ -34,8 +40,7 @@ class tag_OMX_ComponentNameEnum(skema.tag.SkemaTag):
 
         log_api ("%s" % element.tag)
 
-        cname = OMX_STRING()
-
+        cname = (c_ubyte * OMX_MAX_STRINGNAME_SIZE)()
         cnamelen = OMX_U32()
         cnamelen = OMX_MAX_STRINGNAME_SIZE
 
@@ -47,13 +52,15 @@ class tag_OMX_ComponentNameEnum(skema.tag.SkemaTag):
 
         while True:
 
-            omxerror = OMX_ComponentNameEnum(cname, cnamelen, index)
+            omxerror = OMX_ComponentNameEnum(cast(cname, POINTER(c_char)),
+                                             cnamelen, index)
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
             if (err == "OMX_ErrorNoMore") or (err != "OMX_ErrorNone"):
                 break
 
-            log_line ("Component at index #%d : %s" % (index, cname),  1)
+            log_line ("Component at index #%d : %s" \
+                          % (index, cast(cname, c_char_p).value),  1)
             index = index + 1
 
         if (err == "OMX_ErrorNoMore"):

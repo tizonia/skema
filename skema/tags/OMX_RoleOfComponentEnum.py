@@ -20,10 +20,17 @@ from skema.omxil12 import OMX_STRING
 from skema.omxil12 import OMX_U32
 from skema.omxil12 import OMX_ERRORTYPE
 from skema.omxil12 import get_string_from_il_enum
+from skema.omxil12 import OMX_MAX_STRINGNAME_SIZE
 
 from skema.utils import log_api
 from skema.utils import log_line
 from skema.utils import log_result
+
+from ctypes import c_ubyte
+from ctypes import c_char
+from ctypes import c_char_p
+from ctypes import POINTER
+from ctypes import cast
 
 
 class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
@@ -35,7 +42,7 @@ class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
         name = element.get('name')
         log_api ("%s '%s'" % (element.tag, name))
 
-        crole = OMX_STRING()
+        crole = (c_ubyte * OMX_MAX_STRINGNAME_SIZE)()
         index = OMX_U32()
         index = 0
         err = OMX_ERRORTYPE()
@@ -44,13 +51,15 @@ class tag_OMX_RoleOfComponentEnum(skema.tag.SkemaTag):
 
         while True:
 
-            omxerror = OMX_RoleOfComponentEnum(crole, name, index)
+            omxerror = OMX_RoleOfComponentEnum(cast(crole, POINTER(c_char)),
+                                               name, index)
             interror = int(omxerror & 0xffffffff)
             err = get_string_from_il_enum(interror, "OMX_Error")
             if (err == "OMX_ErrorNoMore") or (err != "OMX_ErrorNone"):
                 break
 
-            log_line ("Role #%d : %s" % (index, crole),  1)
+            log_line ("Role #%d : %s" \
+                          % (index, cast(crole, c_char_p).value),  1)
             index = index + 1
 
         if (err == "OMX_ErrorNoMore"):
