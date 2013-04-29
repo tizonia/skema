@@ -20,12 +20,17 @@ from skema.omxil12 import OMX_U32
 from skema.omxil12 import OMX_ERRORTYPE
 from skema.omxil12 import OMX_ComponentOfRoleEnum
 from skema.omxil12 import get_string_from_il_enum
+from skema.omxil12 import OMX_MAX_STRINGNAME_SIZE
 
 from skema.utils import log_api
 from skema.utils import log_line
 from skema.utils import log_result
 
-#from ctypes import *
+from ctypes import c_ubyte
+from ctypes import c_char
+from ctypes import c_char_p
+from ctypes import POINTER
+from ctypes import cast
 
 class tag_OMX_ComponentOfRoleEnum(skema.tag.SkemaTag):
     """
