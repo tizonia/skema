@@ -42,9 +42,6 @@ class tag_OMX_SetContentURI(skema.tag.SkemaTag):
         uristr = element.get('uri')
         alias = element.get('alias')
         name = context.cnames[alias]
-#        This param struct does not have a port index.
-#        portstr = element.get('port')
-
         log_api ("%s '%s' '%s' '%s'" \
                        % (element.tag, indexstr, name, uristr))
 
@@ -53,10 +50,6 @@ class tag_OMX_SetContentURI(skema.tag.SkemaTag):
         param_type = OMX_PARAM_CONTENTURITYPE
         param_struct = param_type()
         param_struct.nSize = sizeof(param_type)
-
-#        This param struct does not have a port index.
-#        if (portstr != None):
-#            param_struct.nPortIndex = int(portstr)
 
         if (handle != None):
             omxerror = OMX_GetParameter(handle, index, byref(param_struct))
