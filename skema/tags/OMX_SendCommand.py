@@ -41,10 +41,10 @@ class tag_OMX_SendCommand(skema.tag.SkemaTag):
                        % (element.tag, name, cmdstr, nparam1str, cmddatastr))
         handle = context.handles[alias]
         cmd = get_il_enum_from_string(cmdstr)
-        if (cmd == OMX_CommandPortEnable or cmd == OMX_CommandPortDisable):
+	if (cmd == OMX_CommandPortEnable or cmd == OMX_CommandPortDisable):
             # nParam1 is the port index to be enabled/disabled, not an enum
             nparam1 = int(nparam1str)
-        else:
+	else:
             nparam1 = get_il_enum_from_string(nparam1str)
 
         if (handle != None):
