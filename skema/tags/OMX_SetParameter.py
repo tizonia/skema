@@ -96,6 +96,11 @@ def encode_video_portdef (param_struct, param2_type, element):
     for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
             if (name2 == name):
+                if (name == "eColorFormat"):
+                    val2 = get_il_enum_from_string(val2)
+                if (name == "eCompressionFormat"):
+                    val2 = get_il_enum_from_string(val2)
+
                 setattr(param_struct.format.video, name, int(val2))
 
 

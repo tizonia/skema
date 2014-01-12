@@ -9381,6 +9381,7 @@ __all_indexes__ = dict([
 ('OMX_IndexParamStandardComponentRole',    OMX_PARAM_COMPONENTROLETYPE),
 ('OMX_IndexConfigContentURI',              OMX_PARAM_CONTENTURITYPE),
 ('OMX_IndexConfigCommonCapturing',         OMX_CONFIG_PORTBOOLEANTYPE),
+('OMX_IndexConfigCommonPortCapturing',     OMX_CONFIG_PORTBOOLEANTYPE),
 ('OMX_IndexConfigTunneledPortStatus',      OMX_CONFIG_TUNNELEDPORTSTATUSTYPE),
 ('OMX_IndexParamPortDefinition',           OMX_PARAM_PORTDEFINITIONTYPE),
 ('OMX_IndexParamCompBufferSupplier',       OMX_PARAM_BUFFERSUPPLIERTYPE),
