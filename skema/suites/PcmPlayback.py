@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio
+# Copyright (C) 2011-2014 Aratelia Limited - Juan A. Rubio
 #
 # Portions Copyright (C) 2010 Linaro
 #

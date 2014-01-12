@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!-- Copyright (C) 2011-2013 Aratelia Limited - Juan A. Rubio -->
+<!-- Copyright (C) 2011-2014 Aratelia Limited - Juan A. Rubio -->
 
 <Suite>
   <Case name="PcmPlayback48Khz">
