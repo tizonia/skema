@@ -25,7 +25,7 @@
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr" port="0"
-                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       uri="$HOME/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
                        expect="OMX_ErrorNone"/>
 
     <OMX_GetParameter index="OMX_IndexParamAudioPcm" alias="ar"
@@ -126,7 +126,7 @@
   </Case>
 
   <Case name="PcmPlayback44.1Khz">
-    <OMX_Init ilcorelib= "/home/joni/temp/lib/libtizcore.so"/>
+    <OMX_Init ilcorelib= "$HOME/temp/lib/libtizcore.so"/>
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
     <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
@@ -146,7 +146,7 @@
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr" port="0"
-                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_44_1_stereo.raw"
+                       uri="$HOME/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_44_1_stereo.raw"
                        expect="OMX_ErrorNone"/>
 
     <OMX_SetParameter index="OMX_IndexParamAudioPcm" alias="ar"

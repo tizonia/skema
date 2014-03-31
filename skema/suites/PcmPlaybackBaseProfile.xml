@@ -18,7 +18,7 @@
                       nBufferCountActual="4" expect="OMX_ErrorNone"/>
 
     <OMX_BaseProfilePort alias="ar" port="0" allocator="true" mode="auto"
-                         uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"/>
+                         uri="$HOME/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"/>
 
     <!-- Transition to OMX_StateIdle -->
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"

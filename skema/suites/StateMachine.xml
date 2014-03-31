@@ -21,7 +21,7 @@
     <!-- Set the media file -->
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr" port="0"
-                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       uri="$HOME/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
                        expect="OMX_ErrorNone"/>
 
     <!-- Set output port as supplier -->
@@ -107,7 +107,7 @@
     <!-- Set the media file -->
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr" port="0"
-                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       uri="$HOME/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
                        expect="OMX_ErrorNone"/>
 
     <!-- Set output port as supplier -->
@@ -193,7 +193,7 @@
     <!-- Set the media file -->
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr" port="0"
-                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       uri="$HOME/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
                        expect="OMX_ErrorNone"/>
 
     <!-- Set output port as supplier -->
@@ -315,7 +315,7 @@
     <!-- Set the media file -->
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr" port="0"
-                       uri="/home/joni/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
+                       uri="$HOME/temp/tizonia-test-media/pcm/strum12str_5sec_le_signed_16_48_stereo.raw"
                        expect="OMX_ErrorNone"/>
 
     <!-- Set output port as supplier -->

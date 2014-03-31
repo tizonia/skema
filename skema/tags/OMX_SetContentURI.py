@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import re
+import pwd
 import skema.tag
 
 from skema.omxil12 import get_il_enum_from_string
@@ -42,6 +45,11 @@ class tag_OMX_SetContentURI(skema.tag.SkemaTag):
         uristr = element.get('uri')
         alias = element.get('alias')
         name = context.cnames[alias]
+
+        # Replace '$USER' and '$HOME' strings wih the actual representations
+        uristr = re.sub("\$USER", pwd.getpwuid(os.getuid())[0], uristr, 1)
+        uristr = re.sub("\$HOME", pwd.getpwuid(os.getuid())[5], uristr, 1)
+
         log_api ("%s '%s' '%s' '%s'" \
                        % (element.tag, indexstr, name, uristr))
 
