@@ -61,7 +61,7 @@ class tag_OMX_GetContentURI(skema.tag.SkemaTag):
                 if (name == "nVersion"):
                     log_line ("%s -> '%08x'" \
                                     % (name, param_struct.nVersion.nVersion), 1)
-                elif (name == "contentURI"):
+                elif (name == "URI"):
                     log_param (name, uristr.value, 1)
                 else:
                     log_param (name, str(getattr(param_struct, name)), 1)
