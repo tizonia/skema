@@ -11,13 +11,22 @@
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.tizonia.test_component" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.ilcore.test_component" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer.pcm" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer_nb.pcm" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.file_reader.binary" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.file_writer.binary" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.mp3" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_encoder.mp3" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.video_decoder.vp8" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.video_encoder.vp8" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.image_decoder.webp" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.image_encoder.webp" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.iv_renderer.yuv.overlay" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_metadata_eraser.mp3" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.ice_renderer.http" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.flac" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.opus" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.vorbis" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.container_demuxer.ogg" expect="OMX_ErrorNone" />
 
     <OMX_Deinit />
 
