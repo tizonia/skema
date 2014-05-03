@@ -11,7 +11,7 @@
     <OMX_ComponentOfRoleEnum role="tizonia_test_component.role1" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="tizonia_test_component.role2" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="default" expect="OMX_ErrorNone" />
-    <OMX_ComponentOfRoleEnum role="audio_renderer.pcm" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="audio_renderer_nb.pcm" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="audio_reader.binary" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="video_reader.binary" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="image_reader.binary" expect="OMX_ErrorNone" />

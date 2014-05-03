@@ -10,7 +10,7 @@
 
     <!-- Load a couple of components -->
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer_nb.pcm" alias="ar" />
 
     <!-- Set some random nBufferCountActual value to be used in the tunnel -->
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
@@ -96,7 +96,7 @@
 
     <!-- Load a couple of components -->
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer_nb.pcm" alias="ar" />
 
     <!-- Set some random nBufferCountActual value to be used in the tunnel -->
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
@@ -182,7 +182,7 @@
 
     <!-- Load a couple of components -->
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer_nb.pcm" alias="ar" />
 
     <!-- Set some random nBufferCountActual value to be used in the tunnel -->
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
@@ -304,7 +304,7 @@
 
     <!-- Load a couple of components -->
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer_nb.pcm" alias="ar" />
 
     <!-- Set some random nBufferCountActual value to be used in the tunnel -->
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"

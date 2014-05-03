@@ -9,7 +9,7 @@
     <OMX_Init />
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer_nb.pcm" alias="ar" />
     <OMX_GetHandle name="OMX.Aratelia.audio_decoder.mp3" alias="ad" />
 
     <OMX_GetComponentVersion alias="fr" />
