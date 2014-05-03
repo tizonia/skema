@@ -277,7 +277,6 @@ class SkemaBaseProfileExchange(SkemaBaseProfileCmdIf):
 
         for i in range(0, port.nBufferCountActual):
             if port.is_input:
-
                 buf        = port.fd.read(port.nBufferSize)
                 read_bytes = len(buf)
 
@@ -337,17 +336,13 @@ class SkemaBaseProfileFillDone(SkemaBaseProfileCmdIf):
 
     def run (self, manager):
 
-        pid = self.emptied_buffer.contents.nOutputPortIndex
+        pid = self.filled_buffer.contents.nOutputPortIndex
         port = manager.aliases2ports[self.alias][str(pid)]
 
         if port.EOS:
             return
 
-        #buf  = port.fd.read(port.nBufferSize)
-        #read_bytes = len(buf)
-        #memmove(self.emptied_buffer.contents.pBuffer, buf, read_bytes)
-
-        OMX_FillThisBuffer(handle, self.filled_buffer)
+        OMX_FillThisBuffer(self.handle, self.filled_buffer)
 
 
 class SkemaBaseProfileEmptyDone(SkemaBaseProfileCmdIf):

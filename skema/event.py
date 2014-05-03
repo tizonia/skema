@@ -72,5 +72,5 @@ def my_fbd_cback(a, b, c):
     name   = config.cnames2[a]
     alias  = config.aliases[name]
     handle = config.handles[alias]
-    config.base_profile_mgr.fill_buffer_done(a,alias,c)
+    config.base_profile_mgr.fill_buffer_done(handle,alias,c)
     return 0
