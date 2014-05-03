@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2014 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="Mp3DecodeBaseProfile">
+
+    <OMX_Init />
+
+    <OMX_GetHandle name="OMX.Aratelia.audio_decoder.mp3" alias="ad" />
+
+    <OMX_GetComponentVersion alias="ad" />
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ad"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ad" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ad" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfilePort alias="ad" port="0" allocator="true" mode="auto"
+                         uri="$HOME/temp/tizonia-test-media/mp3/riff_rock.mp3"/>
+    <OMX_BaseProfilePort alias="ad" port="1" allocator="true" mode="auto"
+                         uri="$HOME/temp/tizonia-test-media/mp3/riff_rock-v2.mp3"/>
+
+    <!-- Transition to OMX_StateIdle -->
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfileAllocateBuffers alias="ad" port="0" howmany="all" />
+    <OMX_BaseProfileAllocateBuffers alias="ad" port="1" howmany="all" />
+
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition to OMX_StateExecuting -->
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
+
+    <OMX_BaseProfileStartBufferExchange alias="ad" port="0" />
+    <OMX_BaseProfileStartBufferExchange alias="ad" port="1" />
+
+    <!-- Wait for EOS -->
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventBufferFlag"
+                     ndata1="1"
+                     ndata2="1"
+                     peventdata="0"
+                     timeout="200"/>
+
+    <!-- Transition back to OMX_StateIdle -->
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition back to OMX_StateLoaded -->
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfileFreeBuffers alias="ad" port="0" howmany="all" />
+    <OMX_BaseProfileFreeBuffers alias="ad" port="1" howmany="all" />
+
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <OMX_FreeHandle alias="ad" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>
