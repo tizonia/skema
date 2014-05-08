@@ -18,6 +18,7 @@
 import os
 import threading
 
+from collections import defaultdict
 from skema.omxil12 import OMX_CALLBACKTYPE
 
 class SkemaConfig(object):
@@ -44,9 +45,11 @@ class SkemaConfig(object):
         self.cnames                  = dict() # comp alias -> comp name
         self.cnames2                 = dict() # comp handle -> comp name
         self.handles                 = dict() # comp alias -> comp handle
-        self.cmdevents               = dict() # comp comp handle -> cmd event
-        self.eosevents               = dict() # comp comp handle -> eos event
-        self.settings_changed_events = dict() # comp comp handle -> eos event
+        self.cmdevents               = dict() # comp handle -> cmd event
+        self.eosevents               = dict() # comp handle -> eos event
+        self.settings_changed_events = dict() # comp handle -> eos event
+        self.error_events            = defaultdict(list) # comp handle -> omx error list
+        self.ignored_error_events    = defaultdict(list) # comp handle -> omx error list
         self.params                  = dict() # OMX_IndexParam... -> OMX_ param struct
         self.configs                 = dict() # OMX_IndexConfig... -> OMX_ config struct
         self.result                  = dict() # Test result

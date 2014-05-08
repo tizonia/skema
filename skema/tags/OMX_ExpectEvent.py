@@ -16,6 +16,7 @@
 import skema.tag
 
 from skema.omxil12 import get_il_enum_from_string
+from skema.omxil12 import get_string_from_il_enum
 from skema.omxil12 import OMX_EventCmdComplete
 from skema.omxil12 import OMX_EventBufferFlag
 from skema.omxil12 import OMX_EventPortSettingsChanged
@@ -58,6 +59,13 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                         log_line ()
                         log_line ("%s '%s' '%s' '%s' received OK"     \
                                       % (element.tag, name, evtstr, ndata2str))
+                    elif len(context.error_events) != 0:
+                        msg = element.tag + " '" + name + "' " + " '" \
+                            + evtstr + "'"
+                        log_line ()
+                        interror = context.error_events[handle.value][0]
+                        log_result (msg, get_string_from_il_enum(interror, "OMX_Error"))
+                        return interror
                     else:
                         msg = element.tag + " '" + name + "' " + " '" \
                             + evtstr + "' " + ndata2str + "'"
@@ -80,6 +88,13 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                         log_line ()
                         log_line ("%s '%s' '%s' received OK"          \
                                         % (element.tag, name, evtstr))
+                    elif len(context.error_events) != 0:
+                        msg = element.tag + " '" + name + "' " + " '" \
+                            + evtstr + "'"
+                        log_line ()
+                        interror = context.error_events[handle.value][0]
+                        log_result (msg, get_string_from_il_enum(interror, "OMX_Error"))
+                        return interror
                     else:
                         msg = element.tag + " '" + name + "' " + " '" \
                             + evtstr + "'"
@@ -103,6 +118,13 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                         log_line ()
                         log_line ("%s '%s' '%s' received OK"            \
                                         % (element.tag, name, evtstr))
+                    elif len(context.error_events) != 0:
+                        msg = element.tag + " '" + name + "' " + " '" \
+                            + evtstr + "'"
+                        log_line ()
+                        interror = context.error_events[handle.value][0]
+                        log_result (msg, get_string_from_il_enum(interror, "OMX_Error"))
+                        return interror
                     else:
                         msg = element.tag + " '" + name + "' " + " '" + \
                             evtstr + "'"
