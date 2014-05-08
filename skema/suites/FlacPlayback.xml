@@ -8,23 +8,13 @@
 
     <OMX_Init />
 
-    <OMX_GetHandle name="OMX.Aratelia.container_demuxer.ogg" alias="fr" />
+    <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
     <OMX_GetHandle name="OMX.Aratelia.audio_decoder.flac" alias="ad" />
     <OMX_GetHandle name="OMX.Aratelia.audio_renderer_nb.pcm" alias="ar" />
 
     <OMX_GetComponentVersion alias="fr" />
     <OMX_GetComponentVersion alias="ad" />
     <OMX_GetComponentVersion alias="ar" />
-
-    <!-- Disable the ogg demuxer video port, port index 1  -->
-    <OMX_SendCommand comp="fr" cmd="OMX_CommandPortDisable"
-                     nparam1="1" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandPortDisable"
-                     ndata2="1"
-                     peventdata="0"
-                     timeout="1"/>
 
     <!-- Now, configure the ports -->
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
@@ -107,7 +97,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateExecuting" cmddata="0"
@@ -116,7 +106,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateExecuting" cmddata="0"
@@ -125,14 +115,14 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
 <!-- Await EOS -->
     <OMX_ExpectEvent comp="ar" evt="OMX_EventBufferFlag"
                      ndata1="0"
                      ndata2="1"
                      peventdata="0"
-                     timeout="12000"/>
+                     timeout="120"/>
 
 <!-- Transition graph back to OMX_StateIdle -->
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
@@ -262,7 +252,7 @@
                      ndata1="0"
                      ndata2="1"
                      peventdata="0"
-                     timeout="12000"/>
+                     timeout="120"/>
 
 <!-- Transition graph back to OMX_StateIdle -->
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
