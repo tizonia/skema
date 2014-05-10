@@ -24,7 +24,7 @@
                      ndata1="OMX_CommandPortDisable"
                      ndata2="1"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
     <!-- Now, configure the ports -->
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
@@ -56,7 +56,7 @@
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamAudioPcm" alias="ar"
                       port="0" nChannels="2" eNumData="0"
-                      eEndian="0" nBitPerSample="16"
+                      eEndian="1" nBitPerSample="32"
                       nSamplingRate="44100" expect="OMX_ErrorNone"/>
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
@@ -82,7 +82,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
@@ -92,12 +92,12 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
 <!-- Transition graph to OMX_StateExecuting -->
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
@@ -107,7 +107,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateExecuting" cmddata="0"
@@ -116,7 +116,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateExecuting" cmddata="0"
@@ -125,7 +125,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
 <!-- Await EOS -->
     <OMX_ExpectEvent comp="ar" evt="OMX_EventBufferFlag"
@@ -147,7 +147,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
@@ -157,12 +157,12 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
 <!-- Transition graph back to OMX_StateLoaded -->
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
@@ -179,17 +179,17 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
     <!-- Play another vorbis file without tearing down the tunnel and unloading
          the components -->
@@ -217,17 +217,17 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
 <!-- Transition graph to OMX_StateExecuting -->
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
@@ -237,7 +237,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateExecuting" cmddata="0"
@@ -246,7 +246,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateExecuting" cmddata="0"
@@ -255,7 +255,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="2"/>
 
 <!-- Await EOS -->
     <OMX_ExpectEvent comp="ar" evt="OMX_EventBufferFlag"
@@ -277,7 +277,7 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
@@ -287,12 +287,12 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
 <!-- Transition graph back to OMX_StateLoaded -->
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
@@ -309,17 +309,17 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="2"/>
 
     <OMX_TeardownTunnel outcomp="fr" outport="0" incomp="ad" inport="0"
                         expect="OMX_ErrorNone"/>
