@@ -4,7 +4,7 @@
 
 <Suite>
 
-  <Case name="VorbisPlayback101">
+  <Case name="VorbisPlayback">
 
     <OMX_Init />
 
