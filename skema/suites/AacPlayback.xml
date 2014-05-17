@@ -45,7 +45,7 @@
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamAudioPcm" alias="ar"
                       port="0" nChannels="2" eNumData="0"
-                      eEndian="0" nBitPerSample="16"
+                      eEndian="1" nBitPerSample="16"
                       nSamplingRate="44100" expect="OMX_ErrorNone"/>
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
@@ -121,7 +121,7 @@
                      ndata1="0"
                      ndata2="1"
                      peventdata="0"
-                     timeout="20"/>
+                     timeout="60"/>
 
 <!-- Transition graph back to OMX_StateIdle -->
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
@@ -251,7 +251,7 @@
                      ndata1="0"
                      ndata2="1"
                      peventdata="0"
-                     timeout="2"/>
+                     timeout="120"/>
 
 <!-- Transition graph back to OMX_StateIdle -->
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
