@@ -41,6 +41,11 @@
     <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
                       port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
 
+    <OMX_GetParameter index="OMX_IndexParamAudioAac" alias="ad"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamAudioAac" alias="ad"
+                      port="0" nSamplingRate="44100" expect="OMX_ErrorNone"/>
+
     <OMX_GetParameter index="OMX_IndexParamAudioPcm" alias="ar"
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamAudioPcm" alias="ar"
