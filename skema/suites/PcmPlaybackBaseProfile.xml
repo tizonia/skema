@@ -8,7 +8,7 @@
 
     <OMX_Init />
 
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer_nb.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
 
     <OMX_GetComponentVersion alias="ar" />
 
