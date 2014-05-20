@@ -17,10 +17,10 @@
     <OMX_ComponentOfRoleEnum role="image_reader.binary" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="other_reader.binary" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="audio_decoder.mp3" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="audio_decoder.opus" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="audio_decoder.vorbis" expect="OMX_ErrorNone" />
+    <OMX_ComponentOfRoleEnum role="audio_decoder.aac" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="video_decoder.vp8" expect="OMX_ErrorNone" />
-    <OMX_ComponentOfRoleEnum role="video_encoder.vp8" expect="OMX_ErrorNone" />
-    <OMX_ComponentOfRoleEnum role="image_decoder.webp" expect="OMX_ErrorNone" />
-    <OMX_ComponentOfRoleEnum role="image_encoder.webp" expect="OMX_ErrorNone" />
     <OMX_ComponentOfRoleEnum role="iv_renderer.yuv.overlay" expect="OMX_ErrorNone" />
 
     <OMX_Deinit />
