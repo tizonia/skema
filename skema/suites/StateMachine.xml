@@ -393,6 +393,10 @@
                      peventdata="0"
                      timeout="1"/>
 
+    <!-- Ignore OMX_ErrorPortUnpopulated errors -->
+    <OMX_IgnoreError comp="fr" err="OMX_ErrorPortUnpopulated" ndata2="0" />
+    <OMX_IgnoreError comp="ar" err="OMX_ErrorPortUnpopulated" ndata2="0" />
+
     <!-- Transition back to OMX_StateLoaded : supplier first -->
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateLoaded" cmddata="0"
