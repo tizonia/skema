@@ -9,7 +9,7 @@
     <OMX_Init />
 
     <OMX_GetHandle name="OMX.Aratelia.audio_metadata_eraser.mp3" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.ice_renderer.http" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.http" alias="ar" />
 
     <OMX_GetComponentVersion alias="fr" />
     <OMX_GetComponentVersion alias="ar" />

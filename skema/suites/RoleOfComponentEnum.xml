@@ -18,7 +18,7 @@
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.video_decoder.vp8" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.iv_renderer.yuv.overlay" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_metadata_eraser.mp3" expect="OMX_ErrorNone" />
-    <OMX_RoleOfComponentEnum name="OMX.Aratelia.ice_renderer.http" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer.http" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.flac" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.opus" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.vorbis" expect="OMX_ErrorNone" />
