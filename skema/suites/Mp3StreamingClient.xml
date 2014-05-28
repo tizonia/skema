@@ -16,8 +16,17 @@
     <OMX_GetComponentVersion alias="ar" />
     <OMX_GetComponentVersion alias="ad" />
 
+    <!-- Update the OMX_AUDIO_CODINGTYPE (eEncoding) value to enable audio
+         encoding auto-detection on the source component :-->
+    <!-- OMX_AUDIO_CodingAutoDetect => eEncoding=1 -->
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="fr" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="fr" port="0"
+                      eEncoding="1" expect="OMX_ErrorNone"/>
+
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
                       expect="OMX_ErrorNone"/>
+    <!-- Update buffer count actual -->
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
                       nBufferCountActual="4" expect="OMX_ErrorNone"/>
 
