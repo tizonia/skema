@@ -20,6 +20,7 @@ from skema.omxil12 import get_string_from_il_enum
 from skema.omxil12 import OMX_EventCmdComplete
 from skema.omxil12 import OMX_EventBufferFlag
 from skema.omxil12 import OMX_EventPortSettingsChanged
+from skema.omxil12 import OMX_EventPortFormatDetected
 
 from skema.utils import log_line
 from skema.utils import log_result
@@ -115,6 +116,36 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                     context.settings_changed_events[handle.value].      \
                         wait(int(timeoutstr))
                     if (context.settings_changed_events[handle.value].is_set()):
+                        log_line ()
+                        log_line ("%s '%s' '%s' received OK"            \
+                                        % (element.tag, name, evtstr))
+                    elif len(context.error_events) != 0:
+                        msg = element.tag + " '" + name + "' " + " '" \
+                            + evtstr + "'"
+                        log_line ()
+                        interror = context.error_events[handle.value][0]
+                        log_result (msg, get_string_from_il_enum(interror, "OMX_Error"))
+                        return interror
+                    else:
+                        msg = element.tag + " '" + name + "' " + " '" + \
+                            evtstr + "'"
+                        log_line ()
+                        log_result (msg, "OMX_ErrorTimeout")
+                        return get_il_enum_from_string("OMX_ErrorTimeout")
+
+            elif (evt == OMX_EventPortFormatDetected):
+                if (context.format_detected_events[handle.value].is_set()):
+                    context.format_detected_events[handle.value].clear()
+                    log_line ()
+                    log_line ("%s '%s' '%s' was received OK"            \
+                                    % (element.tag, name, evtstr), 1)
+                else:
+                    log_line ()
+                    log_line ("%s Waiting for '%s' from '%s'"           \
+                                    % (element.tag, evtstr, name), 1)
+                    context.format_detected_events[handle.value].      \
+                        wait(int(timeoutstr))
+                    if (context.format_detected_events[handle.value].is_set()):
                         log_line ()
                         log_line ("%s '%s' '%s' received OK"            \
                                         % (element.tag, name, evtstr))

@@ -78,6 +78,7 @@ class tag_OMX_GetHandle(skema.tag.SkemaTag):
                 context.cmdevents[handle.value]               = threading.Event()
                 context.eosevents[handle.value]               = threading.Event()
                 context.settings_changed_events[handle.value] = threading.Event()
+                context.format_detected_events[handle.value]  = threading.Event()
                 context.error_events[handle.value]            = []
                 context.ignored_error_events[handle.value]    = []
             else:

@@ -19,6 +19,7 @@ from skema.omxil12 import get_il_enum_from_string
 from skema.omxil12 import OMX_EventCmdComplete
 from skema.omxil12 import OMX_EventBufferFlag
 from skema.omxil12 import OMX_EventPortSettingsChanged
+from skema.omxil12 import OMX_EventPortFormatDetected
 
 from skema.utils import log_line
 from skema.utils import log_result
@@ -47,6 +48,9 @@ class tag_OMX_ResetEvent(skema.tag.SkemaTag):
 
             elif (evt == OMX_EventPortSettingsChanged):
                 context.settings_changed_events[handle.value].clear()
+
+            elif (evt == OMX_EventPortFormatDetected):
+                context.format_detected_events[handle.value].clear()
 
             else:
                 log_line ()
