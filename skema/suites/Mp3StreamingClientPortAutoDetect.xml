@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2014 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="Mp3StreamingClientPortAutoDetect">
+
+    <!-- Start 'tplay' as an http server in daemon mode -->
+    <OMX_StartSubProcess alias="tplay"
+                         cmdline="$HOME/temp/bin/tplay --daemon --log-directory=/tmp --port 8050 --stream $HOME/temp/tizonia-test-media/mp3/riff_rock.mp3" />
+
+    <OMX_Init />
+
+    <OMX_GetHandle name="OMX.Aratelia.audio_source.http" alias="fr" />
+    <OMX_GetComponentVersion alias="fr" />
+
+    <!-- HTTP source component: Enable audio encoding auto-detection. Update
+         the OMX_AUDIO_CODINGTYPE (eEncoding) value :-->
+    <!-- OMX_AUDIO_CodingAutoDetect => eEncoding=1 -->
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="fr" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="fr" port="0"
+                      eEncoding="1" expect="OMX_ErrorNone"/>
+
+    <!-- Disable the http source output port, port index 0  -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandPortDisable"
+                     nparam1="0" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandPortDisable"
+                     ndata2="0"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Set the http uri to listen to -->
+    <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetContentURI alias="fr" port="0" uri="http://localhost:8050"
+                       expect="OMX_ErrorNone"/>
+
+    <!-- Transition the http source to OMX_StateIdle -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Transition the http source to OMX_StateExecuting -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Now expect OMX_EventPortFormatDetected... -->
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventPortFormatDetected"
+                     ndata1="0"
+                     ndata2="0"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- ...and also expect OMX_EventPortSettingsChnaged -->
+    <!-- ndata1 = Port index-->
+    <!-- ndata2 = param or config index, OMX_IndexParamPortDefinition = 0x02000001 = 33554433 -->
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventPortSettingsChanged"
+                     ndata1="0"
+                     ndata2="33554433"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Retrieve the port definition (to inspect the new eEnconding value) -->
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="fr" port="0"
+                      expect="OMX_ErrorNone"/>
+
+    <!-- Retrieve the port definition (to inspect the new eEnconding value,
+         should be the same as the one found in the port definition structure)
+         -->
+    <OMX_GetParameter index="OMX_IndexParamAudioPortFormat" alias="fr" port="0"
+                      expect="OMX_ErrorNone"/>
+
+
+    <!-- At this point, the mp3 encoding should be set on the http source
+         component output port. So lets instantiate the rest of the graph. -->
+    <OMX_GetHandle name="OMX.Aratelia.audio_decoder.mp3" alias="ad" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+
+    <OMX_GetComponentVersion alias="ad" />
+    <OMX_GetComponentVersion alias="ar" />
+
+    <!-- Configure the graph -->
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ad"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ad"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ad"
+                      port="1" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ad"
+                      port="1" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
+                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+
+    <OMX_GetParameter index="OMX_IndexParamAudioPcm" alias="ar"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamAudioPcm" alias="ar"
+                      port="0" nChannels="2" eNumData="0"
+                      eEndian="0" nBitPerSample="16"
+                      nSamplingRate="44100" expect="OMX_ErrorNone"/>
+
+    <!-- Disable the audio decoder input port, port index 0 (because we still
+         have the http source output port disabled) -->
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandPortDisable"
+                     nparam1="0" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandPortDisable"
+                     ndata2="0"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Setup the tunnels -->
+    <OMX_SetupTunnel outcomp="fr" outport="0" incomp="ad" inport="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_SetupTunnel outcomp="ad" outport="1" incomp="ar" inport="0"
+                     expect="OMX_ErrorNone"/>
+
+    <!-- Transition the remaining of the graph to OMX_StateIdle (remember:
+         source already in OMX_StateExecuting state) -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Transition the remaining of the graph to OMX_StateExecuting -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Now enable the audio decoder input port, port index 0 ... -->
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandPortEnable"
+                     nparam1="0" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <!-- ... and also enable the the http source output port, port index 0 -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandPortEnable"
+                     nparam1="0" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandPortEnable"
+                     ndata2="0"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandPortEnable"
+                     ndata2="0"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Wait a bit -->
+    <OMX_Wait delay="30"/>
+
+    <!-- Transition graph back to OMX_StateIdle -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="2"/>
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <!-- Transition graph back to OMX_StateLoaded -->
+    <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_ExpectEvent comp="ar" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="2"/>
+    <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="2"/>
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="2"/>
+
+    <OMX_TeardownTunnel outcomp="fr" outport="0" incomp="ad" inport="0"
+                        expect="OMX_ErrorNone"/>
+    <OMX_TeardownTunnel outcomp="ad" outport="1" incomp="ar" inport="0"
+                        expect="OMX_ErrorNone"/>
+
+    <OMX_FreeHandle alias="ar" />
+    <OMX_FreeHandle alias="ad" />
+    <OMX_FreeHandle alias="fr" />
+
+    <!-- Stop 'tplay'-->
+    <OMX_StopSubProcess alias="tplay" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>
