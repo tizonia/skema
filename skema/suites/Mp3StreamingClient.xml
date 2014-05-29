@@ -4,7 +4,7 @@
 
 <Suite>
 
-  <Case name="Mp3StreamingClient101">
+  <Case name="Mp3StreamingClient">
 
     <OMX_Init />
 
@@ -15,14 +15,6 @@
     <OMX_GetComponentVersion alias="fr" />
     <OMX_GetComponentVersion alias="ar" />
     <OMX_GetComponentVersion alias="ad" />
-
-    <!-- Update the OMX_AUDIO_CODINGTYPE (eEncoding) value to enable audio
-         encoding auto-detection on the source component :-->
-    <!-- OMX_AUDIO_CodingAutoDetect => eEncoding=1 -->
-    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="fr" port="0"
-                      expect="OMX_ErrorNone"/>
-    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="fr" port="0"
-                      eEncoding="1" expect="OMX_ErrorNone"/>
 
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
                       expect="OMX_ErrorNone"/>
@@ -125,8 +117,8 @@
                      peventdata="0"
                      timeout="2"/>
 
-<!-- Wait for a minute or so -->
-    <OMX_Wait delay="60"/>
+<!-- Wait a bit -->
+    <OMX_Wait delay="30"/>
 
 <!-- Transition graph back to OMX_StateIdle -->
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
