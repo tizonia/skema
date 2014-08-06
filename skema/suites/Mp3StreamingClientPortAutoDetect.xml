@@ -10,6 +10,9 @@
     <OMX_StartSubProcess alias="tplay"
                          cmdline="$HOME/temp/bin/tplay --daemon --log-directory=/tmp --port 8050 --stream $HOME/temp/tizonia-test-media/mp3/riff_rock.mp3" />
 
+    <!-- Leave some time for tplay to start up -->
+    <OMX_Wait delay="3"/>
+
     <OMX_Init />
 
     <OMX_GetHandle name="OMX.Aratelia.audio_source.http" alias="fr" />
