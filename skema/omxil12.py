@@ -1778,6 +1778,13 @@ OMX_AUDIO_CodingKhronosExtensions = 1862270976 # OMX_Audio.h: 77
 
 OMX_AUDIO_CodingVendorStartUnused = 2130706432 # OMX_Audio.h: 77
 
+# START: Tizonia extensions
+OMX_AUDIO_CodingOPUS = (OMX_AUDIO_CodingVendorStartUnused + 1)
+OMX_AUDIO_CodingFLAC = (OMX_AUDIO_CodingOPUS + 1)
+OMX_AUDIO_CodingSPEEX = (OMX_AUDIO_CodingFLAC + 1)
+OMX_AUDIO_CodingOGA = (OMX_AUDIO_CodingSPEEX + 1)
+# END: Tizonia extensions
+
 OMX_AUDIO_CodingMax = 2147483647 # OMX_Audio.h: 77
 
 OMX_AUDIO_CODINGTYPE = enum_OMX_AUDIO_CODINGTYPE # OMX_Audio.h: 77
