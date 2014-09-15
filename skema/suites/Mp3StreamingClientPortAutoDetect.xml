@@ -91,7 +91,7 @@
     <!-- At this point, the mp3 encoding should be set on the http source
          component output port. So lets instantiate the rest of the graph. -->
     <OMX_GetHandle name="OMX.Aratelia.audio_decoder.mp3" alias="ad" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.alsa.pcm" alias="ar" />
 
     <OMX_GetComponentVersion alias="ad" />
     <OMX_GetComponentVersion alias="ar" />

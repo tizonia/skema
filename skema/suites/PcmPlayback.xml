@@ -8,7 +8,7 @@
     <OMX_Init />
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.alsa.pcm" alias="ar" />
 
     <OMX_GetComponentVersion alias="fr" />
     <OMX_GetComponentVersion alias="ar" />
@@ -129,7 +129,7 @@
     <OMX_Init ilcorelib= "$HOME/temp/lib/libtizcore.so"/>
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.alsa.pcm" alias="ar" />
 
     <OMX_GetComponentVersion alias="fr" />
     <OMX_GetComponentVersion alias="ar" />

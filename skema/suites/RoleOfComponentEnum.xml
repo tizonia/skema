@@ -10,7 +10,7 @@
 
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.tizonia.test_component" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.ilcore.test_component" expect="OMX_ErrorNone" />
-    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer.pcm" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer.alsa.pcm" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.file_reader.binary" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.file_writer.binary" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.mp3" expect="OMX_ErrorNone" />
