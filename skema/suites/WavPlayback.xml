@@ -4,8 +4,6 @@
 
 <Suite>
 
-<Suite>
-
   <Case name="WavPlayback">
 
     <OMX_Init />
