@@ -28,6 +28,7 @@ from skema.omxil12 import __all_indexes__ as omxil12_indexes
 from skema.omxil12 import OMX_GetParameter
 from skema.omxil12 import OMX_AllocateBuffer
 from skema.omxil12 import OMX_UseBuffer
+from skema.omxil12 import OMX_UseEGLImage
 from skema.omxil12 import OMX_FreeBuffer
 from skema.omxil12 import OMX_FillThisBuffer
 from skema.omxil12 import OMX_EmptyThisBuffer
@@ -172,6 +173,7 @@ class SkemaBaseProfileAllocate(SkemaBaseProfileCmdIf):
                                          None,
                                          port.nBufferSize,
                                          buf)
+                port.buffers.append(buf)
             else:
                 omxerror = OMX_AllocateBuffer(handle,
                                               byref(p_header),
@@ -180,7 +182,93 @@ class SkemaBaseProfileAllocate(SkemaBaseProfileCmdIf):
                                               port.nBufferSize)
 
             port.headers.append(p_header)
-            port.buffers.append(buf)
+
+        port.allocation_count += self.howmany
+
+class SkemaBaseProfileUseEGLImages(SkemaBaseProfileCmdIf):
+    """
+
+    """
+
+    def __init__ (self, alias, pid, howmany):
+        self.alias   = alias
+        self.pid     = pid
+        self.howmany = howmany
+
+    def run (self, manager):
+
+        if self.alias not in manager.aliases2ports:
+            print "use_egl_images: Wrong alias specified"
+            sys.exit(1)
+
+        if self.pid not in manager.aliases2ports[self.alias]:
+            print "use_egl_images: Wrong port index specified"
+            sys.exit(1)
+
+        port = manager.aliases2ports[self.alias][self.pid]
+
+        config = get_config()
+        handle = config.handles[self.alias]
+
+        # Retrieve the port definition
+        indexstr                = "OMX_IndexParamPortDefinition"
+        index                   = get_il_enum_from_string(indexstr)
+        param_type              = omxil12_indexes[indexstr]
+        param_struct            = param_type()
+        param_struct.nSize      = sizeof(param_type)
+        param_struct.nPortIndex = int(self.pid)
+
+        omxerror = OMX_GetParameter(handle, index, byref(param_struct))
+        interror = int(omxerror & 0xffffffff)
+        err = get_string_from_il_enum(interror, "OMX_Error")
+
+        port.nBufferCountActual = param_struct.nBufferCountActual
+        port.nBufferSize        = param_struct.nBufferSize
+
+        dirstr = get_string_from_il_enum \
+            (getattr(param_struct, "eDir"), "OMX_Dir")
+
+        if "OMX_DirInput" == dirstr:
+            port.is_input = True
+        else:
+            port.is_input = False
+
+        if self.howmany.lower() == "all":
+            self.howmany = port.nBufferCountActual
+        else:
+            self.howmany = int(self.howmany)
+            log_line ("Allocate %d total" % self.howmany)
+
+        if self.howmany == 0:
+            print "use_egl_images: Need to allocate at least 1 buffer"
+            sys.exit(1)
+
+        if port.allocation_count + self.howmany > \
+                port.nBufferCountActual:
+            print "use_egl_images: Need to allocate at most " \
+                "nBufferCountActual buffers"
+            sys.exit(1)
+
+        libc = CDLL('libc.so.6')
+        for i in range(port.allocation_count,
+                       port.allocation_count + self.howmany):
+
+            p_header = POINTER(OMX_BUFFERHEADERTYPE)()
+
+            if port.allocator:
+                print "use_egl_images: Port can't be allocate buffers. " \
+                    "Invalid test setup."
+                sys.exit(1)
+
+            eglimage = (c_ubyte * port.nBufferSize)()
+            omxerror = OMX_UseEGLImage(handle,
+                                       byref(p_header),
+                                       param_struct.nPortIndex,
+                                       None,
+                                       eglimage)
+
+            port.headers.append(p_header)
+            port.buffers.append(eglimage)
 
         port.allocation_count += self.howmany
 
@@ -280,7 +368,8 @@ class SkemaBaseProfileExchange(SkemaBaseProfileCmdIf):
                 buf        = port.fd.read(port.nBufferSize)
                 read_bytes = len(buf)
 
-                memmove(port.headers[i].contents.pBuffer, buf, read_bytes)
+                if port.headers[i].contents.pBuffer:
+                    memmove(port.headers[i].contents.pBuffer, buf, read_bytes)
 
                 port.headers[i].contents.nFilledLen = read_bytes
                 if read_bytes < port.nBufferSize:
@@ -365,7 +454,9 @@ class SkemaBaseProfileEmptyDone(SkemaBaseProfileCmdIf):
 
         buf  = port.fd.read(port.nBufferSize)
         read_bytes = len(buf)
-        memmove(self.emptied_buffer.contents.pBuffer, buf, read_bytes)
+
+        if self.emptied_buffer.contents.pBuffer:
+            memmove(self.emptied_buffer.contents.pBuffer, buf, read_bytes)
 
         self.emptied_buffer.contents.nFilledLen = read_bytes
         if read_bytes < port.nBufferSize:
@@ -390,6 +481,9 @@ class SkemaBaseProfileManager(threading.Thread):
 
     def allocate_buffers (self, alias, pid, howmany):
         self.queue.put(SkemaBaseProfileAllocate(alias, pid, howmany))
+
+    def use_egl_images (self, alias, pid, howmany):
+        self.queue.put(SkemaBaseProfileUseEGLImages(alias, pid, howmany))
 
     def free_buffers (self, alias, pid, howmany):
         self.queue.put(SkemaBaseProfileFree(alias, pid, howmany))
