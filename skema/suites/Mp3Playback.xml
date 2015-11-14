@@ -4,7 +4,7 @@
 
 <Suite>
 
-  <Case name="Mp3Playback101">
+  <Case name="Mp3Playback">
 
     <OMX_Init />
 

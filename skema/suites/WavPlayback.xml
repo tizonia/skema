@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!-- Copyright (C) 2011-2015 Aratelia Limited - Juan A. Rubio -->
+<!-- Copyright (C) 2011-2014 Aratelia Limited - Juan A. Rubio -->
 
 <Suite>
 
-  <Case name="MpegPlayback101">
+  <Case name="WavPlayback">
 
     <OMX_Init />
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.alsa.pcm" alias="ar" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_decoder.mpeg" alias="ad" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_renderer.pulseaudio.pcm" alias="ar" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_decoder.pcm" alias="ad" />
 
     <OMX_GetComponentVersion alias="fr" />
     <OMX_GetComponentVersion alias="ar" />
@@ -50,7 +50,7 @@
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr"
-                       port="0" uri="$HOME/temp/tizonia-test-media/mp3/riff_rock.mp3"
+                       port="0" uri="$HOME/temp/tizonia-test-media/wav/riff_rock.wav"
                        expect="OMX_ErrorNone"/>
 
     <OMX_SetupTunnel outcomp="fr" outport="0" incomp="ad" inport="0"
@@ -180,7 +180,7 @@
                      peventdata="0"
                      timeout="2"/>
 
-    <!-- Play another mp3 file without tearing down the tunnel and unloading
+    <!-- Play another wav file without tearing down the tunnel and unloading
          the components -->
 
     <!-- Forget knowledge about the previous EOS flag  -->
@@ -188,7 +188,7 @@
 
     <!-- Set a new file path -->
     <OMX_SetContentURI alias="fr"
-                       port="0" uri="$HOME/temp/tizonia-test-media/mp3/strum12str.mp3"
+                       port="0" uri="$HOME/temp/tizonia-test-media/wav/riff_rock.wav"
                        expect="OMX_ErrorNone"/>
 
     <!-- Transition graph to OMX_StateIdle -->
@@ -251,7 +251,7 @@
                      ndata1="0"
                      ndata2="1"
                      peventdata="0"
-                     timeout="120"/>
+                     timeout="60"/>
 
 <!-- Transition graph back to OMX_StateIdle -->
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
