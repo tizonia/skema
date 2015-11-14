@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2015 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="TestComponentEGLImage">
+
+    <OMX_Init />
+
+    <OMX_GetHandle name="OMX.Aratelia.tizonia.test_component" alias="tc" />
+
+    <OMX_GetComponentVersion alias="tc" />
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="tc"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="tc" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="tc" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfilePort alias="tc" port="0" allocator="false" mode="auto"
+                         uri="$HOME/temp/tizonia-test-media/ogg/big_buck_bunny_480p_stereo.vorbis.original"/>
+
+
+    <!-- Transition to OMX_StateIdle -->
+    <OMX_SendCommand comp="tc" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <!-- Base Profile manager use OMX_UseEGLImages until the component's port
+         is fully populated -->
+    <OMX_BaseProfileUseEGLImages alias="tc" port="0" howmany="all" />
+
+    <OMX_ExpectEvent comp="tc" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition to OMX_StateExecuting -->
+    <OMX_SendCommand comp="tc" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="tc" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
+
+    <OMX_BaseProfileStartBufferExchange alias="tc" port="0" />
+
+    <!-- Wait for EOS -->
+    <OMX_ExpectEvent comp="tc" evt="OMX_EventBufferFlag"
+                     ndata1="1"
+                     ndata2="1"
+                     peventdata="0"
+                     timeout="20"/>
+
+    <!-- Transition back to OMX_StateIdle -->
+    <OMX_SendCommand comp="tc" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="tc" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition back to OMX_StateLoaded -->
+    <OMX_SendCommand comp="tc" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfileFreeBuffers alias="tc" port="0" howmany="all" />
+
+    <OMX_ExpectEvent comp="tc" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <OMX_FreeHandle alias="tc" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>
