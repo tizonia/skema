@@ -18,6 +18,12 @@
     <OMX_GetComponentVersion alias="ad" />
     <OMX_GetComponentVersion alias="ar" />
 
+    <!-- Set 'other' role on the binary file reader component -->
+    <OMX_SetComponentRole alias="fr" role="other_reader.binary"/>
+
+    <!-- Set 'filter' role on the webm demuxer component -->
+    <OMX_SetComponentRole alias="dm" role="container_demuxer.filter.webm"/>
+
     <!-- Disable the ogg demuxer video port, port index 1  -->
     <OMX_SendCommand comp="dm" cmd="OMX_CommandPortDisable"
                      nparam1="1" cmddata="0"
