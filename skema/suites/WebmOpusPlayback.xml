@@ -4,7 +4,7 @@
 
 <Suite>
 
-  <Case name="WebmOpusPlayback101">
+  <Case name="WebmOpusPlayback">
 
     <OMX_Init />
 
@@ -13,7 +13,7 @@
     <OMX_GetHandle name="OMX.Aratelia.audio_decoder.opus" alias="ad" />
     <OMX_GetHandle name="OMX.Aratelia.audio_renderer.alsa.pcm" alias="ar" />
 
-    <OMX_GetComponentVersion alias="dm" />
+    <OMX_GetComponentVersion alias="fr" />
     <OMX_GetComponentVersion alias="dm" />
     <OMX_GetComponentVersion alias="ad" />
     <OMX_GetComponentVersion alias="ar" />
@@ -77,8 +77,8 @@
                       eEndian="1" nBitPerSample="16"
                       nSamplingRate="44100" expect="OMX_ErrorNone"/>
 
-    <OMX_GetContentURI alias="dm" port="0" expect="OMX_ErrorNone"/>
-    <OMX_SetContentURI alias="dm"
+    <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
+    <OMX_SetContentURI alias="fr"
                        port="0" uri="$HOME/temp/tizonia-test-media/webm/strum12str_16_441_vbr_20ms.webm"
                        expect="OMX_ErrorNone"/>
 
@@ -95,7 +95,16 @@
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
+
     <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
 
@@ -105,19 +114,11 @@
                      peventdata="0"
                      timeout="1"/>
 
-    <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
                      timeout="1"/>
-
-    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
 
     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
@@ -250,7 +251,7 @@
     <OMX_ResetEvent comp="ar" evt="OMX_EventBufferFlag" />
 
     <!-- Set a new file path -->
-    <OMX_SetContentURI alias="dm"
+    <OMX_SetContentURI alias="fr"
                        port="0" uri="$HOME/temp/tizonia-test-media/webm/strum12str_16_441_vbr_20ms.webm"
                        expect="OMX_ErrorNone"/>
 
