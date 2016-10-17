@@ -26,11 +26,11 @@
 
     <!-- Disable the ogg demuxer video port, port index 1  -->
     <OMX_SendCommand comp="dm" cmd="OMX_CommandPortDisable"
-                     nparam1="1" cmddata="0"
+                     nparam1="2" cmddata="0"
                      expect="OMX_ErrorNone"/>
     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandPortDisable"
-                     ndata2="1"
+                     ndata2="2"
                      peventdata="0"
                      timeout="1"/>
 
