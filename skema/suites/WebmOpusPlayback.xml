@@ -40,6 +40,11 @@
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ar" port="0"
                       nBufferCountActual="4" expect="OMX_ErrorNone"/>
 
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="dm" port="1"
+                      nBufferSize="16384" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="ad" port="0"
+                      nBufferSize="16384" expect="OMX_ErrorNone"/>
+
     <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ar"
@@ -221,10 +226,16 @@
     <OMX_SendCommand comp="ar" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateLoaded" cmddata="0"
                      expect="OMX_ErrorNone"/>
+
     <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateLoaded" cmddata="0"
                      expect="OMX_ErrorNone"/>
+
     <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateLoaded" cmddata="0"
                      expect="OMX_ErrorNone"/>
 
@@ -233,12 +244,20 @@
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
                      timeout="1"/>
+
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
                      timeout="1"/>
+
     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
