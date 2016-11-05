@@ -22,10 +22,10 @@
     <!-- Set 'filter' role on the webm demuxer component -->
     <OMX_SetComponentRole alias="dm" role="container_demuxer.filter.webm"/>
 
-    <!-- Set 'audio role on the binary file writer component -->
+    <!-- Set 'audio' role on the binary file writer component -->
     <OMX_SetComponentRole alias="fw" role="audio_writer.binary"/>
 
-    <!-- Disable the ogg demuxer video port, port index 1  -->
+    <!-- Disable the ogg demuxer video port, port index 2  -->
     <OMX_SendCommand comp="dm" cmd="OMX_CommandPortDisable"
                      nparam1="2" cmddata="0"
                      expect="OMX_ErrorNone"/>
