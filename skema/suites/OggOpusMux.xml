@@ -16,14 +16,14 @@
     <OMX_GetComponentVersion alias="mx" />
     <OMX_GetComponentVersion alias="fw" />
 
-    <!-- Set 'other' role on the binary file reader component -->
-    <OMX_SetComponentRole alias="fr" role="other_reader.binary"/>
+    <!-- Set 'audio' role on the binary file reader component -->
+    <OMX_SetComponentRole alias="fr" role="audio_reader.binary"/>
 
     <!-- Set 'filter' role on the ogg muxer component -->
     <OMX_SetComponentRole alias="mx" role="container_muxer.filter.ogg"/>
 
-    <!-- Set 'audio' role on the binary file writer component -->
-    <OMX_SetComponentRole alias="fw" role="audio_writer.binary"/>
+    <!-- Set 'other' role on the binary file writer component -->
+    <OMX_SetComponentRole alias="fw" role="other_writer.binary"/>
 
     <!-- Disable the ogg muxer video port, port index 1  -->
     <OMX_SendCommand comp="mx" cmd="OMX_CommandPortDisable"
@@ -79,7 +79,7 @@
     <OMX_SetupTunnel outcomp="fr" outport="0" incomp="mx" inport="0"
                      expect="OMX_ErrorNone"/>
 
-    <OMX_SetupTunnel outcomp="mx" outport="1" incomp="fw" inport="0"
+    <OMX_SetupTunnel outcomp="mx" outport="2" incomp="fw" inport="0"
                      expect="OMX_ErrorNone"/>
 
     <!-- Transition graph to OMX_StateIdle -->
@@ -212,7 +212,7 @@
 
     <OMX_TeardownTunnel outcomp="fr" outport="0" incomp="mx" inport="0"
                         expect="OMX_ErrorNone"/>
-    <OMX_TeardownTunnel outcomp="mx" outport="1" incomp="fw" inport="0"
+    <OMX_TeardownTunnel outcomp="mx" outport="2" incomp="fw" inport="0"
                         expect="OMX_ErrorNone"/>
 
     <OMX_FreeHandle alias="fw" />
