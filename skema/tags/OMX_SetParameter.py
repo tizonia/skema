@@ -85,6 +85,19 @@ def decode_image_portdef (param_struct, param2_type):
             log_line ("%s -> '%s'" \
                           % (name, getattr(param_struct.format.image, name)),2)
 
+def decode_other_portdef (param_struct, param2_type):
+    log_line ("%s" % param2_type.__name__, 1)
+    for name, _ in param2_type._fields_:
+        if (name == "eFormat"):
+            encstr = get_string_from_il_enum (\
+                getattr(param_struct.format.other, name), \
+                    "OMX_OTHER_Format")
+            log_line ("%s -> '%s'" \
+                          % (name, encstr),2)
+        else:
+            log_line ("%s -> '%s'" \
+                          % (name, getattr(param_struct.format.other, name)),2)
+
 def encode_audio_portdef (param_struct, param2_type, element):
     for name, _ in param2_type._fields_:
         for name2, val2 in element.items():
