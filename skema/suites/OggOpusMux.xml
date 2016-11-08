@@ -57,9 +57,9 @@
                       port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
 
     <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="mx"
-                      port="1" expect="OMX_ErrorNone"/>
+                      port="2" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="mx"
-                      port="1" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+                      port="2" eBufferSupplier="2" expect="OMX_ErrorNone"/>
 
     <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="fr"
                       port="0" expect="OMX_ErrorNone"/>
@@ -67,11 +67,13 @@
                       port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
+
     <OMX_SetContentURI alias="fr"
                        port="0" uri="$HOME/temp/tizonia-test-media/opus/strum12str_16_441_vbr_20ms.opus.raw"
                        expect="OMX_ErrorNone"/>
 
     <OMX_GetContentURI alias="fw" port="0" expect="OMX_ErrorNone"/>
+
     <OMX_SetContentURI alias="fw"
                        port="0" uri="$HOME/temp/tizonia-test-media/opus/strum12str_16_441_vbr_20ms.ogg.opus"
                        expect="OMX_ErrorNone"/>
