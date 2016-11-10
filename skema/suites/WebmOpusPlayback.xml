@@ -11,7 +11,7 @@
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
     <OMX_GetHandle name="OMX.Aratelia.container_demuxer.webm" alias="dm" />
     <OMX_GetHandle name="OMX.Aratelia.container_muxer.ogg" alias="mx" />
-    <OMX_GetHandle name="OMX.Aratelia.audio_decoder.opusfile.opus" alias="ad" />
+    <OMX_GetHandle name="OMX.Aratelia.audio_decoder.opus" alias="ad" />
     <OMX_GetHandle name="OMX.Aratelia.audio_renderer.alsa.pcm" alias="ar" />
 
     <OMX_GetComponentVersion alias="fr" />
