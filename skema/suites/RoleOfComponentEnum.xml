@@ -21,9 +21,17 @@
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer.http" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.flac" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.opus" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.opusfile.opus" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.vorbis" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.aac" expect="OMX_ErrorNone" />
     <OMX_RoleOfComponentEnum name="OMX.Aratelia.container_demuxer.ogg" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.container_demuxer.webm" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.pcm" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_source.http" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_renderer.pulseaudio.pcm" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_decoder.mpeg" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.container_muxer.ogg" expect="OMX_ErrorNone" />
+    <OMX_RoleOfComponentEnum name="OMX.Aratelia.audio_source.spotify.pcm" expect="OMX_ErrorNone" />
 
     <OMX_Deinit />
 
