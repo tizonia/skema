@@ -80,7 +80,7 @@
     <OMX_SetParameter index="OMX_IndexParamAudioPcm" alias="ar"
                       port="0" nChannels="2" eNumData="0"
                       eEndian="1" nBitPerSample="16"
-                      nSamplingRate="44100" expect="OMX_ErrorNone"/>
+                      nSamplingRate="48000" expect="OMX_ErrorNone"/>
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
 
