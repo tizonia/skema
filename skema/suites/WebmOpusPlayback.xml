@@ -10,13 +10,11 @@
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />
     <OMX_GetHandle name="OMX.Aratelia.container_demuxer.webm" alias="dm" />
-    <OMX_GetHandle name="OMX.Aratelia.container_muxer.ogg" alias="mx" />
     <OMX_GetHandle name="OMX.Aratelia.audio_decoder.opus" alias="ad" />
     <OMX_GetHandle name="OMX.Aratelia.audio_renderer.alsa.pcm" alias="ar" />
 
     <OMX_GetComponentVersion alias="fr" />
     <OMX_GetComponentVersion alias="dm" />
-    <OMX_GetComponentVersion alias="mx" />
     <OMX_GetComponentVersion alias="ad" />
     <OMX_GetComponentVersion alias="ar" />
 
@@ -26,9 +24,6 @@
     <!-- Set 'filter' role on the webm demuxer component -->
     <OMX_SetComponentRole alias="dm" role="container_demuxer.filter.webm"/>
 
-    <!-- Set 'filter' role on the ogg muxer component -->
-    <OMX_SetComponentRole alias="mx" role="container_muxer.filter.ogg"/>
-
     <!-- Disable the ogg demuxer video port, port index 1  -->
     <OMX_SendCommand comp="dm" cmd="OMX_CommandPortDisable"
                      nparam1="2" cmddata="0"
@@ -36,16 +31,6 @@
     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandPortDisable"
                      ndata2="2"
-                     peventdata="0"
-                     timeout="1"/>
-
-    <!-- Disable the ogg muxer video port, port index 1  -->
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandPortDisable"
-                     nparam1="1" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandPortDisable"
-                     ndata2="1"
                      peventdata="0"
                      timeout="1"/>
 
@@ -74,16 +59,6 @@
                       port="1" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="ad"
                       port="1" eBufferSupplier="2" expect="OMX_ErrorNone"/>
-
-    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="mx"
-                      port="0" expect="OMX_ErrorNone"/>
-    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="mx"
-                      port="0" eBufferSupplier="2" expect="OMX_ErrorNone"/>
-
-    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="mx"
-                      port="2" expect="OMX_ErrorNone"/>
-    <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="mx"
-                      port="2" eBufferSupplier="2" expect="OMX_ErrorNone"/>
 
     <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="dm"
                       port="0" expect="OMX_ErrorNone"/>
@@ -116,10 +91,7 @@
     <OMX_SetupTunnel outcomp="fr" outport="0" incomp="dm" inport="0"
                      expect="OMX_ErrorNone"/>
 
-    <OMX_SetupTunnel outcomp="dm" outport="1" incomp="mx" inport="0"
-                     expect="OMX_ErrorNone"/>
-
-    <OMX_SetupTunnel outcomp="mx" outport="2" incomp="ad" inport="0"
+    <OMX_SetupTunnel outcomp="dm" outport="1" incomp="ad" inport="0"
                      expect="OMX_ErrorNone"/>
 
     <OMX_SetupTunnel outcomp="ad" outport="1" incomp="ar" inport="0"
@@ -131,10 +103,6 @@
                      expect="OMX_ErrorNone"/>
 
     <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
 
@@ -153,12 +121,6 @@
                      timeout="1"/>
 
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandStateSet"
-                     ndata2="OMX_StateIdle"
-                     peventdata="0"
-                     timeout="1"/>
-
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
@@ -192,16 +154,6 @@
                      expect="OMX_ErrorNone"/>
 
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandStateSet"
-                     ndata2="OMX_StateExecuting"
-                     peventdata="0"
-                     timeout="20"/>
-
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateExecuting" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
@@ -255,16 +207,6 @@
                      peventdata="0"
                      timeout="1"/>
 
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandStateSet"
-                     ndata2="OMX_StateIdle"
-                     peventdata="0"
-                     timeout="1"/>
-
     <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
@@ -294,10 +236,6 @@
                      nparam1="OMX_StateLoaded" cmddata="0"
                      expect="OMX_ErrorNone"/>
 
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateLoaded" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
     <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateLoaded" cmddata="0"
                      expect="OMX_ErrorNone"/>
@@ -313,12 +251,6 @@
                      timeout="1"/>
 
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandStateSet"
-                     ndata2="OMX_StateLoaded"
-                     peventdata="0"
-                     timeout="1"/>
-
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
@@ -356,10 +288,6 @@
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
 
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
     <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
@@ -375,12 +303,6 @@
                      timeout="1"/>
 
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandStateSet"
-                     ndata2="OMX_StateIdle"
-                     peventdata="0"
-                     timeout="1"/>
-
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
@@ -414,16 +336,6 @@
                      expect="OMX_ErrorNone"/>
 
     <OMX_ExpectEvent comp="ad" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandStateSet"
-                     ndata2="OMX_StateExecuting"
-                     peventdata="0"
-                     timeout="20"/>
-
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateExecuting" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateExecuting"
                      peventdata="0"
@@ -477,16 +389,6 @@
                      peventdata="0"
                      timeout="1"/>
 
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandStateSet"
-                     ndata2="OMX_StateIdle"
-                     peventdata="0"
-                     timeout="1"/>
-
     <OMX_SendCommand comp="ad" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
@@ -516,10 +418,6 @@
                      nparam1="OMX_StateLoaded" cmddata="0"
                      expect="OMX_ErrorNone"/>
 
-    <OMX_SendCommand comp="mx" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateLoaded" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
     <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateLoaded" cmddata="0"
                      expect="OMX_ErrorNone"/>
@@ -540,12 +438,6 @@
                      peventdata="0"
                      timeout="1"/>
 
-    <OMX_ExpectEvent comp="mx" evt="OMX_EventCmdComplete"
-                     ndata1="OMX_CommandStateSet"
-                     ndata2="OMX_StateLoaded"
-                     peventdata="0"
-                     timeout="1"/>
-
     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
@@ -560,16 +452,13 @@
 
     <OMX_TeardownTunnel outcomp="fr" outport="0" incomp="dm" inport="0"
                         expect="OMX_ErrorNone"/>
-    <OMX_TeardownTunnel outcomp="dm" outport="1" incomp="mx" inport="0"
-                        expect="OMX_ErrorNone"/>
-    <OMX_TeardownTunnel outcomp="mx" outport="2" incomp="ad" inport="0"
+    <OMX_TeardownTunnel outcomp="dm" outport="1" incomp="ad" inport="0"
                         expect="OMX_ErrorNone"/>
     <OMX_TeardownTunnel outcomp="ad" outport="1" incomp="ar" inport="0"
                         expect="OMX_ErrorNone"/>
 
     <OMX_FreeHandle alias="ar" />
     <OMX_FreeHandle alias="ad" />
-    <OMX_FreeHandle alias="mx" />
     <OMX_FreeHandle alias="dm" />
     <OMX_FreeHandle alias="fr" />
 
