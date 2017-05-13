@@ -1,7 +1,0 @@
-Skema is an automated testing framework for OpenMAX IL with pre-defined tests
-and the ability to define additional tests as needed.
-
-External dependency
--------------------
-The following debian packages are needed:
-* TODO
