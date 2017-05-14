@@ -17,7 +17,7 @@ main repo: https://github.com/tizonia/tizonia-openmax-il/wiki/Skema
 
 # Usage
 
-![alt text](https://github.com/tizonia/skema/blob/master/docs/animated-gifs/tizonia-usage-screencast.gif "Skema usage")
+![alt text](https://github.com/tizonia/skema/blob/master/docs/skema-usage-screencast.gif "Skema usage")
 
 # License
 
