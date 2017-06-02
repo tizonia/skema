@@ -46,7 +46,7 @@
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="vd"
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vd"
-                      nFrameWidth="1280" nFrameHeight="720"
+                      nFrameWidth="640" nFrameHeight="480"
                       port="0" expect="OMX_ErrorNone"/>
 
     <!-- Await port settings change event on decoders's port #1 -->
@@ -63,7 +63,7 @@
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="vr"
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vr"
-                      nFrameWidth="640" nFrameHeight="360"
+                      nFrameWidth="640" nFrameHeight="480"
                       port="0" expect="OMX_ErrorNone"/>
 
     <!-- Await port settings change event on renderer's port #0 -->
@@ -78,7 +78,7 @@
 
     <OMX_GetContentURI alias="fr" port="0" expect="OMX_ErrorNone"/>
     <OMX_SetContentURI alias="fr"
-                       port="0" uri="$HOME/temp/tizonia-test-media/rawvp8/sample_1280x720_30fps_I420_10sec.vp8"
+                       port="0" uri="$HOME/temp/tizonia-test-media/rawvp8/sample_640x480_30fps_I420_10sec.vp8"
                        expect="OMX_ErrorNone"/>
 
     <OMX_SetupTunnel outcomp="fr" outport="0" incomp="vd" inport="0"
