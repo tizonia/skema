@@ -73,6 +73,9 @@
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vd"
                       nFrameWidth="640" nFrameHeight="360"
+                      xFramerate="25"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="vd"
                       port="0" expect="OMX_ErrorNone"/>
 
     <!-- Await port settings change event on decoders's port #1 -->
