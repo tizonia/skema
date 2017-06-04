@@ -72,7 +72,7 @@
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="vd"
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vd"
-                      nFrameWidth="640" nFrameHeight="480"
+                      nFrameWidth="640" nFrameHeight="360"
                       port="0" expect="OMX_ErrorNone"/>
 
     <!-- Await port settings change event on decoders's port #1 -->
@@ -89,7 +89,7 @@
     <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="vr"
                       port="0" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vr"
-                      nFrameWidth="640" nFrameHeight="480"
+                      nFrameWidth="640" nFrameHeight="360"
                       port="0" expect="OMX_ErrorNone"/>
 
     <!-- Await port settings change event on renderer's port #0 -->
