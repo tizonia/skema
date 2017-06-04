@@ -25,7 +25,7 @@
     <!-- Set 'audio' role on the binary file writer component -->
     <OMX_SetComponentRole alias="fw" role="audio_writer.binary"/>
 
-    <!-- Disable the ogg demuxer video port, port index 2  -->
+    <!-- Disable the webm demuxer video port, port index 2  -->
     <OMX_SendCommand comp="dm" cmd="OMX_CommandPortDisable"
                      nparam1="2" cmddata="0"
                      expect="OMX_ErrorNone"/>
