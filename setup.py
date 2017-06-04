@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (C) 2011-2014 Aratelia Limited - Juan A. Rubio
+# Copyright (C) 2011-2017 Aratelia Limited - Juan A. Rubio
 #
 
 # This program is free software: you can redistribute it and/or modify
