@@ -3,7 +3,7 @@
 <!-- Copyright (C) 2011-2015 Aratelia Limited - Juan A. Rubio -->
 
 <Suite>
-  <Case name="RawVp8Playback101">
+  <Case name="WebmVp8Playback101">
     <OMX_Init />
 
     <OMX_GetHandle name="OMX.Aratelia.file_reader.binary" alias="fr" />

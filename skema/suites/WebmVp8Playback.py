@@ -18,9 +18,9 @@
 import os
 import skema.suite
 
-SUITENAME="RawVp8Playback"
+SUITENAME="WebmVp8Playback"
 SCRIPTPATH = [str(os.path.join(os.path.dirname(os.path.realpath( __file__ )),
-                               'RawVp8Playback.xml'))]
+                               'WebmVp8Playback.xml'))]
 PATTERN = "^(?P<test_case_id>\w+):\W+(?P<measurement>\d+\.\d+)"
 
 instobj = skema.suite.SkemaSuiteInstaller(suitename=SUITENAME,
