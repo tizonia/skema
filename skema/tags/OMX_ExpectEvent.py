@@ -60,12 +60,14 @@ class tag_OMX_ExpectEvent(skema.tag.SkemaTag):
                         log_line ()
                         log_line ("%s '%s' '%s' '%s' received OK"     \
                                       % (element.tag, name, evtstr, ndata2str))
-                    elif len(context.error_events) != 0:
+                    elif len(context.error_events) \
+                         and context.error_events[handle.value]:
                         msg = element.tag + " '" + name + "' " + " '" \
                             + evtstr + "'"
                         log_line ()
-                        interror = context.error_events[handle.value][0]
-                        log_result (msg, get_string_from_il_enum(interror, "OMX_Error"))
+                        interror = 0
+                        for interror in context.error_events[handle.value]:
+                            log_result (msg, get_string_from_il_enum(interror, "OMX_Error"))
                         return interror
                     else:
                         msg = element.tag + " '" + name + "' " + " '" \
