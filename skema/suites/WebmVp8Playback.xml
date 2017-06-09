@@ -434,36 +434,36 @@
     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
                      nparam1="OMX_StateIdle" cmddata="0"
                      expect="OMX_ErrorNone"/>
-    <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-    <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet"
-                     nparam1="OMX_StateIdle" cmddata="0"
-                     expect="OMX_ErrorNone"/>
-
     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="3"/>
+    <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="3"/>
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
     <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="3"/>
+    <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
     <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateIdle"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="3"/>
 
 <!-- Transition graph back to OMX_StateLoaded -->
     <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet"
@@ -483,22 +483,22 @@
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="3"/>
     <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="3"/>
     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="3"/>
     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
                      ndata1="OMX_CommandStateSet"
                      ndata2="OMX_StateLoaded"
                      peventdata="0"
-                     timeout="1"/>
+                     timeout="3"/>
 
     <OMX_TeardownTunnel outcomp="fr" outport="0" incomp="dm" inport="0"
                         expect="OMX_ErrorNone"/>
