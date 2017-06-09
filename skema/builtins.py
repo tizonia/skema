@@ -22,6 +22,7 @@ Built-in Skema commands
 import os
 import sys
 from optparse import make_option
+from traceback import format_exc
 
 import skema.command
 import skema.suite
@@ -116,6 +117,7 @@ class cmd_run_suite(skema.command.SkemaCmd):
 
         except Exception as strerror:
             print "Suite execution error: %s" % strerror
+            print (format_exc())
             config = get_config()
             config.base_profile_mgr.stop()
             sys.exit(1)
