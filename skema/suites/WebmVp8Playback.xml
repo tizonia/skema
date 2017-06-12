@@ -187,7 +187,7 @@
     <!-- Set the video settings on renderer's port #0 -->
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vr"
                       nFrameWidth="640" nFrameHeight="360"
-                      xFramerate="25" nStride="704"
+                      xFramerate="25" nStride="640"
                       nSliceHeight="360" eColorFormat="OMX_COLOR_FormatYUV420Planar"
                       port="0" expect="OMX_ErrorNone"/>
 
@@ -399,7 +399,7 @@
     <!-- Set the video settings on renderer's port #0 -->
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vr"
                       nFrameWidth="640" nFrameHeight="360"
-                      xFramerate="25" nStride="704"
+                      xFramerate="25" nStride="640"
                       nSliceHeight="360" eColorFormat="OMX_COLOR_FormatYUV420Planar"
                       port="0" expect="OMX_ErrorNone"/>
 
