@@ -205,6 +205,9 @@
                       nSliceHeight="360" eColorFormat="OMX_COLOR_FormatYUV420Planar"
                       port="0" expect="OMX_ErrorNone"/>
 
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="vr"
+                      port="0" expect="OMX_ErrorNone"/>
+
     <!-- Enable the decoder's port index 1  -->
     <OMX_SendCommand comp="vd" cmd="OMX_CommandPortEnable"
                      nparam1="1" cmddata="0"
