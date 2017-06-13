@@ -305,217 +305,217 @@
                      peventdata="0"
                      timeout="1"/>
 
-<!--     <!-\- Play another opus file without tearing down the tunnel and unloading -->
-<!--          the components -\-> -->
+    <!-- Play another opus file without tearing down the tunnel and unloading
+         the components -->
 
-<!--     <!-\- Forget knowledge about the previous EOS flag  -\-> -->
-<!--     <OMX_ResetEvent comp="vr" evt="OMX_EventBufferFlag" /> -->
+    <!-- Forget knowledge about the previous EOS flag  -->
+    <OMX_ResetEvent comp="vr" evt="OMX_EventBufferFlag" />
 
-<!--     <!-\- Transition graph to OMX_StateIdle -\-> -->
-<!--     <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
+    <!-- Transition graph to OMX_StateIdle -->
+    <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
 
-<!--     <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
-<!--     <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
-<!--     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
-<!--     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
+    <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
 
-<!-- <!-\- Transition graph to OMX_StateExecuting -\-> -->
-<!--     <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateExecuting" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateExecuting" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="20"/> -->
+<!-- Transition graph to OMX_StateExecuting -->
+    <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
 
-<!--     <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateExecuting" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateExecuting" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="20"/> -->
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
 
-<!--     <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateExecuting" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateExecuting" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="20"/> -->
+    <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
 
-<!--     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateExecuting" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateExecuting" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="20"/> -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
 
-<!--     <!-\- Await port settings changed event on decoder's port #1 -\-> -->
-<!--     <!-\-      NOTE: the following arguments are expected -\-> -->
-<!--     <!-\-            ndata1="Port #1" -\-> -->
-<!--     <!-\-            ndata2="OMX_IndexParamPortDefinition = 33554433" -\-> -->
-<!--     <OMX_ExpectEvent comp="vd" evt="OMX_EventPortSettingsChanged" -->
-<!--                      ndata1="1" -->
-<!--                      ndata2="33554433" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
+    <!-- Await port settings changed event on decoder's port #1 -->
+    <!--      NOTE: the following arguments are expected -->
+    <!--            ndata1="Port #1" -->
+    <!--            ndata2="OMX_IndexParamPortDefinition = 33554433" -->
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventPortSettingsChanged"
+                     ndata1="1"
+                     ndata2="33554433"
+                     peventdata="0"
+                     timeout="1"/>
 
-<!--     <!-\- Disable the decoder's port index 1  -\-> -->
-<!--     <OMX_SendCommand comp="vd" cmd="OMX_CommandPortDisable" -->
-<!--                      nparam1="1" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandPortDisable" -->
-<!--                      ndata2="1" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
+    <!-- Disable the decoder's port index 1  -->
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandPortDisable"
+                     nparam1="1" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandPortDisable"
+                     ndata2="1"
+                     peventdata="0"
+                     timeout="1"/>
 
-<!--     <!-\- Disable the renderer's port index 0  -\-> -->
-<!--     <OMX_SendCommand comp="vr" cmd="OMX_CommandPortDisable" -->
-<!--                      nparam1="0" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandPortDisable" -->
-<!--                      ndata2="0" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
+    <!-- Disable the renderer's port index 0  -->
+    <OMX_SendCommand comp="vr" cmd="OMX_CommandPortDisable"
+                     nparam1="0" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandPortDisable"
+                     ndata2="0"
+                     peventdata="0"
+                     timeout="1"/>
 
-<!--     <!-\- Set the video settings on renderer's port #0 -\-> -->
-<!--     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vr" -->
-<!--                       nFrameWidth="640" nFrameHeight="360" -->
-<!--                       xFramerate="25" nStride="640" -->
-<!--                       nSliceHeight="360" eColorFormat="OMX_COLOR_FormatYUV420Planar" -->
-<!--                       port="0" expect="OMX_ErrorNone"/> -->
+    <!-- Set the video settings on renderer's port #0 -->
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vr"
+                      nFrameWidth="640" nFrameHeight="360"
+                      xFramerate="25" nStride="640"
+                      nSliceHeight="360" eColorFormat="OMX_COLOR_FormatYUV420Planar"
+                      port="0" expect="OMX_ErrorNone"/>
 
-<!--     <!-\- Enable the decoder's port index 1  -\-> -->
-<!--     <OMX_SendCommand comp="vd" cmd="OMX_CommandPortEnable" -->
-<!--                      nparam1="1" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandPortEnable" -->
-<!--                      ndata2="1" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
+    <!-- Enable the decoder's port index 1  -->
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandPortEnable"
+                     nparam1="1" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandPortEnable"
+                     ndata2="1"
+                     peventdata="0"
+                     timeout="1"/>
 
-<!--     <!-\- Enable the renderer's port index 0  -\-> -->
-<!--     <OMX_SendCommand comp="vr" cmd="OMX_CommandPortEnable" -->
-<!--                      nparam1="0" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandPortEnable" -->
-<!--                      ndata2="0" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="1"/> -->
+    <!-- Enable the renderer's port index 0  -->
+    <OMX_SendCommand comp="vr" cmd="OMX_CommandPortEnable"
+                     nparam1="0" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandPortEnable"
+                     ndata2="0"
+                     peventdata="0"
+                     timeout="1"/>
 
-<!-- <!-\- Await EOS -\-> -->
-<!--     <OMX_ExpectEvent comp="vr" evt="OMX_EventBufferFlag" -->
-<!--                      ndata1="0" -->
-<!--                      ndata2="1" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="12000"/> -->
+<!-- Await EOS -->
+    <OMX_ExpectEvent comp="vr" evt="OMX_EventBufferFlag"
+                     ndata1="0"
+                     ndata2="1"
+                     peventdata="0"
+                     timeout="12000"/>
 
-<!-- <!-\- Transition graph back to OMX_StateIdle -\-> -->
-<!--     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="3"/> -->
-<!--     <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="3"/> -->
-<!--     <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="3"/> -->
-<!--     <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateIdle" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
+<!-- Transition graph back to OMX_StateIdle -->
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="3"/>
+    <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="3"/>
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="3"/>
+    <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
 
-<!--     <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateIdle" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="3"/> -->
+    <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="3"/>
 
-<!-- <!-\- Transition graph back to OMX_StateLoaded -\-> -->
-<!--     <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateLoaded" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateLoaded" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateLoaded" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
-<!--     <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet" -->
-<!--                      nparam1="OMX_StateLoaded" cmddata="0" -->
-<!--                      expect="OMX_ErrorNone"/> -->
+<!-- Transition graph back to OMX_StateLoaded -->
+    <OMX_SendCommand comp="vr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="dm" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_SendCommand comp="fr" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
 
-<!--     <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateLoaded" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="3"/> -->
-<!--     <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateLoaded" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="3"/> -->
-<!--     <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateLoaded" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="3"/> -->
-<!--     <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete" -->
-<!--                      ndata1="OMX_CommandStateSet" -->
-<!--                      ndata2="OMX_StateLoaded" -->
-<!--                      peventdata="0" -->
-<!--                      timeout="3"/> -->
+    <OMX_ExpectEvent comp="vr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="3"/>
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="3"/>
+    <OMX_ExpectEvent comp="dm" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="3"/>
+    <OMX_ExpectEvent comp="fr" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="3"/>
 
     <OMX_TeardownTunnel outcomp="fr" outport="0" incomp="dm" inport="0"
                         expect="OMX_ErrorNone"/>
