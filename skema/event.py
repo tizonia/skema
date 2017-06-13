@@ -16,6 +16,7 @@
 import os
 import sys
 import threading
+import signal
 
 from ctypes import *
 from omxil12 import *
@@ -23,8 +24,9 @@ from omxil12 import *
 from skema.utils import log_line
 from skema.utils import log_api
 from skema.utils import log_result
-
 from skema.config import get_config
+
+PID = os.getpid()
 
 def my_evt_hdler(a, b, c, d, e, f):
     evtstr = get_string_from_il_enum(c, "OMX_Event")
@@ -56,7 +58,9 @@ def my_evt_hdler(a, b, c, d, e, f):
         log_api("EventHandler '%s'"  % (name))
         log_line ()
         log_line ("Received -> '%s' Port '%d' Index '%s'"             \
-                        % (evtstr, d, idxstr), 1)
+                  % (evtstr, d, idxstr), 1)
+#         if name == "OMX.Aratelia.video_decoder.vp8" and d == 0:
+#             os.kill(PID, signal.SIGUSR1)
     elif (c == OMX_EventPortFormatDetected):
         config.format_detected_events[a].set()
         log_line ()

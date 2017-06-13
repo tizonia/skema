@@ -52,6 +52,8 @@
                       port="1" expect="OMX_ErrorNone"/>
     <OMX_SetParameter index="OMX_IndexParamCompBufferSupplier" alias="vd"
                       port="1" eBufferSupplier="2" expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vd"
+                      port="1" nBufferCountActual="4" expect="OMX_ErrorNone"/>
 
      <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="dm"
                       port="0" expect="OMX_ErrorNone"/>
@@ -154,11 +156,11 @@
                      peventdata="0"
                      timeout="20"/>
 
-    <!-- Await port settings change event on renderer's port #0 -->
+    <!-- Await port settings changed event on decoder's port #1 -->
     <!--      NOTE: the following arguments are expected -->
-    <!--            ndata1="Port #0" -->
+    <!--            ndata1="Port #1" -->
     <!--            ndata2="OMX_IndexParamPortDefinition = 33554433" -->
-    <OMX_ExpectEvent comp="vr" evt="OMX_EventPortSettingsChanged"
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventPortSettingsChanged"
                      ndata1="1"
                      ndata2="33554433"
                      peventdata="0"
@@ -183,6 +185,15 @@
                      ndata2="0"
                      peventdata="0"
                      timeout="1"/>
+
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="vd" port="1"
+                      expect="OMX_ErrorNone"/>
+
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vd" port="1"
+                      nBufferCountActual="6" expect="OMX_ErrorNone"/>
+
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vr" port="0"
+                      nBufferCountActual="6" expect="OMX_ErrorNone"/>
 
     <!-- Set the video settings on renderer's port #0 -->
     <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vr"
@@ -366,11 +377,11 @@
                      peventdata="0"
                      timeout="20"/>
 
-    <!-- Await port settings change event on renderer's port #0 -->
+    <!-- Await port settings changed event on decoder's port #1 -->
     <!--      NOTE: the following arguments are expected -->
-    <!--            ndata1="Port #0" -->
+    <!--            ndata1="Port #1" -->
     <!--            ndata2="OMX_IndexParamPortDefinition = 33554433" -->
-    <OMX_ExpectEvent comp="vr" evt="OMX_EventPortSettingsChanged"
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventPortSettingsChanged"
                      ndata1="1"
                      ndata2="33554433"
                      peventdata="0"
