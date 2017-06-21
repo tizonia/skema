@@ -1,0 +1,93 @@
+#!/bin/bash
+#
+# Copyright (C) 2011-2017 Aratelia Limited - Juan A. Rubio
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#
+# Simple script that reinstalls all Skema suites and tags.
+#
+
+# A list of skema test suites that should NOT be executed (i.e are disabled)
+declare -ar SKEMA_EXEMPT_SUITES=( \
+    "Mp3Streaming" \
+    "VorbisDecodeBaseProfile" \
+    "AacPlayback" \
+    "Mp3StreamingClient" \
+    "Mp3StreamingClientPortAutoDetect" \
+    "OpusPlayback" \
+    "PcmPlaybackPulse" \
+    "WavPlayback" \
+    "OggOpusMux" \
+    "Vp8Playback" \
+    "WebmVp8Playback" \
+)
+
+readonly RED=1
+readonly GRN=2
+readonly YEL=3
+readonly BLU=4
+readonly MAG=5
+readonly CYA=6
+readonly WHI=7
+
+function exists_in_array {
+    local e
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+    return 1
+}
+
+function pretty_print {
+    echo "$(tput setaf $1)$2$(tput sgr 0)" 1>&2
+}
+
+function pretty_print_no_crlf {
+    echo -n "$(tput setaf $1)$2$(tput sgr 0)" 1>&2
+}
+
+
+# Verify the existence of important environment variables
+: ${SKEMA_REPO_DIR:?"Need to set SKEMA_REPO_DIR"}
+
+CWD=$(pwd)
+SKEMA_BIN_DIR="$SKEMA_REPO_DIR/bin"
+
+echo "Running skema from [$SKEMA_BIN_DIR]..."
+cd $SKEMA_BIN_DIR
+
+suites=( `./skema list_suites` )
+echo "Running all [${#suites[@]}] installed suites..."
+
+for s in "${suites[@]}"; do
+    exists_in_array "$s" "${SKEMA_EXEMPT_SUITES[@]}"
+    exit_status=$?
+    if [[ "$exit_status" -eq 0 ]]; then
+        pretty_print_no_crlf "$CYA" "$s"
+        pretty_print "$YEL" "$s"
+        continue
+    fi
+
+    pretty_print_no_crlf "$CYA" "$s"
+    ./skema run_suite $s --quiet
+    if [[ $? -eq 0 ]]; then
+        pretty_print "$GRN" " : ok"
+    else
+        pretty_print "$RED" " : not ok"
+    fi
+done
+
+# echo
+# ./skema list_installed_suites
+
+cd $CWD
