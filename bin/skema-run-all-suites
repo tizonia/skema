@@ -74,17 +74,21 @@ for s in "${suites[@]}"; do
     exit_status=$?
     if [[ "$exit_status" -eq 0 ]]; then
         pretty_print_no_crlf "$CYA" "$s"
-        pretty_print "$YEL" "$s"
+        pretty_print "$YEL" " : not run"
         continue
     fi
 
+    before="$(date +%s)"
     pretty_print_no_crlf "$CYA" "$s"
     ./skema run_suite $s --quiet
     if [[ $? -eq 0 ]]; then
-        pretty_print "$GRN" " : ok"
+        pretty_print_no_crlf "$GRN" " : ok"
     else
-        pretty_print "$RED" " : not ok"
+        pretty_print_no_crlf "$RED" " : not ok"
     fi
+    after="$(date +%s)"
+    elapsed_seconds="$(expr $after - $before)"
+    pretty_print "$MAG" " [$(date -d\@$elapsed_seconds -u +%H:%M:%S)]"
 done
 
 # echo
