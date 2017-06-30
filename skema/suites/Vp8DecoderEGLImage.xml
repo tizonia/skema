@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2011-2017 Aratelia Limited - Juan A. Rubio -->
+
+<Suite>
+
+  <Case name="Vp8DecoderEGLImage">
+
+    <OMX_Init />
+
+    <OMX_GetHandle name="OMX.Aratelia.video_decoder.vp8" alias="vd" />
+
+    <OMX_GetComponentVersion alias="vd" />
+
+    <OMX_GetParameter index="OMX_IndexParamCompBufferSupplier" alias="vd"
+                      port="0" expect="OMX_ErrorNone"/>
+    <OMX_GetParameter index="OMX_IndexParamPortDefinition" alias="vd" port="0"
+                      expect="OMX_ErrorNone"/>
+    <OMX_SetParameter index="OMX_IndexParamPortDefinition" alias="vd" port="0"
+                      nBufferCountActual="4" expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfilePort alias="vd" port="0" allocator="false" mode="auto"
+                         uri="$HOME/temp/tizonia-test-media/rawvp8/bbb_640x360_25fps_vp8.raw"/>
+
+    <OMX_BaseProfilePort alias="vd" port="1" allocator="false" mode="auto"
+                         uri="$HOME/temp/tizonia-test-media/rawvp8/bbb_640x360_25fps_vp8.raw.yuv"/>
+
+    <!-- Transition to OMX_StateIdle -->
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <!-- Base Profile manager use OMX_UseEGLImages until the component's port
+         is fully populated -->
+    <OMX_BaseProfileAllocateBuffers alias="vd" port="0" howmany="all" />
+    <OMX_BaseProfileUseEGLImages alias="vd" port="1" howmany="all" />
+
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition to OMX_StateExecuting -->
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateExecuting" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateExecuting"
+                     peventdata="0"
+                     timeout="20"/>
+
+    <OMX_BaseProfileStartBufferExchange alias="vd" port="0" />
+
+    <!-- Await port settings changed event on decoder's port #1 -->
+    <!--      NOTE: the following arguments are expected -->
+    <!--            ndata1="Port #1" -->
+    <!--            ndata2="OMX_IndexParamPortDefinition = 33554433" -->
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventPortSettingsChanged"
+                     ndata1="1"
+                     ndata2="33554433"
+                     peventdata="0"
+                     timeout="1"/>
+
+
+    <!-- Transition back to OMX_StateIdle -->
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateIdle" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateIdle"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <!-- Transition back to OMX_StateLoaded -->
+    <OMX_SendCommand comp="vd" cmd="OMX_CommandStateSet"
+                     nparam1="OMX_StateLoaded" cmddata="0"
+                     expect="OMX_ErrorNone"/>
+
+    <OMX_BaseProfileFreeBuffers alias="vd" port="0" howmany="all" />
+    <OMX_BaseProfileFreeBuffers alias="vd" port="1" howmany="all" />
+
+    <OMX_ExpectEvent comp="vd" evt="OMX_EventCmdComplete"
+                     ndata1="OMX_CommandStateSet"
+                     ndata2="OMX_StateLoaded"
+                     peventdata="0"
+                     timeout="1"/>
+
+    <OMX_FreeHandle alias="vd" />
+
+    <OMX_Deinit />
+
+  </Case>
+
+</Suite>
