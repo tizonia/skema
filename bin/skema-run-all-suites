@@ -22,9 +22,8 @@
 # A list of skema test suites that should NOT be executed (i.e are disabled)
 declare -ar SKEMA_EXEMPT_SUITES=( \
     "Mp3Streaming" \
-    "VorbisDecodeBaseProfile" \
     "Mp3StreamingClient" \
-    "Mp3StreamingClientPortAutoDetect" \
+    "VorbisDecodeBaseProfile" \
     "OpusPlayback" \
     "WavPlayback" \
     "OggOpusMux" \
