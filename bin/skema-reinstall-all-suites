@@ -19,37 +19,28 @@
 # Simple script that reinstalls all Skema suites and tags.
 #
 
-# Verify the existence of important environment variables
-: ${SKEMA_REPO_DIR:?"Need to set SKEMA_REPO_DIR"}
-
-CWD=$(pwd)
-SKEMA_BIN_DIR="$SKEMA_REPO_DIR/bin"
-
-echo "Running skema from [$SKEMA_BIN_DIR]..."
-cd $SKEMA_BIN_DIR
-
-tags=( `./skema list_tags` )
+tags=( `skema list_tags` )
 echo "Installing all [${#tags[@]}] available tags..."
 
 for t in "${tags[@]}"; do
     echo "Installing [$t]"
-    ./skema uninstall_tag $t
-    ./skema install_tag $t
+    skema uninstall_tag $t
+    skema install_tag $t
 done
 
 echo
-# ./skema list_installed_tags
+# skema list_installed_tags
 
-suites=( `./skema list_suites` )
+suites=( `skema list_suites` )
 echo "Installing all [${#suites[@]}] available suites..."
 
 for s in "${suites[@]}"; do
     echo "Installing [$s]"
-    ./skema uninstall_suite $s
-    ./skema install_suite $s
+    skema uninstall_suite $s
+    skema install_suite $s
 done
 
 # echo
-# ./skema list_installed_suites
+# skema list_installed_suites
 
 cd $CWD

@@ -15,31 +15,31 @@ _skema()
     #
     case "${prev}" in
         run_suite)
-            local suites=$(for x in `./skema list_installed_suites`; do echo ${x} ; done )
+            local suites=$(for x in `skema list_installed_suites`; do echo ${x} ; done )
             COMPREPLY=( $(compgen -W "${suites}" -- ${cur}) )
             return 0
             ;;
 
         install_suite)
-            local suites=$(for x in `./skema list_suites`; do echo ${x} ; done )
+            local suites=$(for x in `skema list_suites`; do echo ${x} ; done )
             COMPREPLY=( $(compgen -W "${suites}" -- ${cur}) )
             return 0
             ;;
 
         uninstall_suite)
-            local suites=$(for x in `./skema list_installed_suites`; do echo ${x} ; done )
+            local suites=$(for x in `skema list_installed_suites`; do echo ${x} ; done )
             COMPREPLY=( $(compgen -W "${suites}" -- ${cur}) )
             return 0
             ;;
 
         install_tag)
-            local tags=$(for x in `./skema list_tags`; do echo ${x} ; done )
+            local tags=$(for x in `skema list_tags`; do echo ${x} ; done )
             COMPREPLY=( $(compgen -W "${tags}" -- ${cur}) )
             return 0
             ;;
 
         uninstall_tag)
-            local tags=$(for x in `./skema list_installed_tags`; do echo ${x} ; done )
+            local tags=$(for x in `skema list_installed_tags`; do echo ${x} ; done )
             COMPREPLY=( $(compgen -W "${tags}" -- ${cur}) )
             return 0
             ;;
