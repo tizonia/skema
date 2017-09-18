@@ -6,11 +6,11 @@
 
   <Case name="Mp3StreamingClientPortAutoDetect">
 
-    <!-- Start 'tplay' as an http server in daemon mode -->
-    <OMX_StartSubProcess alias="tplay"
-                         cmdline="$HOME/temp/bin/tplay --daemon --log-directory=/tmp --port 8050 --stream $HOME/temp/tizonia-test-media/mp3/riff_rock.mp3" />
+    <!-- Start 'tizonia' as an http server in daemon mode -->
+    <OMX_StartSubProcess alias="tizonia"
+                         cmdline="$HOME/temp/bin/tizonia --daemon --log-directory=/tmp --port 8050 --server $HOME/temp/tizonia-test-media/mp3/riff_rock.mp3" />
 
-    <!-- Leave some time for tplay to start up -->
+    <!-- Leave some time for tizonia to start up -->
     <OMX_Wait delay="3"/>
 
     <OMX_Init />
@@ -278,8 +278,8 @@
     <OMX_FreeHandle alias="ad" />
     <OMX_FreeHandle alias="fr" />
 
-    <!-- Stop 'tplay'-->
-    <OMX_StopSubProcess alias="tplay" />
+    <!-- Stop 'tizonia'-->
+    <OMX_StopSubProcess alias="tizonia" />
 
     <OMX_Deinit />
 
