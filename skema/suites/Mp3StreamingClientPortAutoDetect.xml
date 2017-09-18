@@ -8,7 +8,7 @@
 
     <!-- Start 'tizonia' as an http server in daemon mode -->
     <OMX_StartSubProcess alias="tizonia"
-                         cmdline="$HOME/temp/bin/tizonia --daemon --log-directory=/tmp --port 8050 --server $HOME/temp/tizonia-test-media/mp3/riff_rock.mp3" />
+                         cmdline="tizonia --daemon --log-directory=/tmp --port 8050 --server $HOME/temp/tizonia-test-media/mp3/riff_rock.mp3" />
 
     <!-- Leave some time for tizonia to start up -->
     <OMX_Wait delay="3"/>
