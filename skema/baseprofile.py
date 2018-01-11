@@ -19,8 +19,8 @@ Skema's OpenMAX IL Base Profile Manager
 
 import os
 import sys
-import threading
 import Queue
+import threading
 
 from abc import abstractmethod, abstractproperty
 
